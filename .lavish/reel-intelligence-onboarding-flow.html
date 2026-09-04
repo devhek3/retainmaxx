@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RetainMaxx onboarding flow</title>
+    <style>
+      :root { --purple: #6D3DF5; --purple-dark: #5728D9; --purple-light: #EEE9FF; --ink: #18181B; --muted: #71717A; --line: #E5E5EA; --paper: #FFFFFF; --soft: #F7F7F8; --error: #DC2626; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--soft); color: var(--ink); font: 16px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      button { font: inherit; }
+      .page { margin: 0 auto; max-width: 1180px; padding: 48px 24px 64px; }
+      .eyebrow { color: var(--purple); font-size: 12px; font-weight: 800; letter-spacing: .11em; margin: 0 0 10px; }
+      h1 { font-size: clamp(30px, 4vw, 48px); letter-spacing: -.055em; line-height: 1.04; margin: 0; max-width: 650px; }
+      .intro { color: var(--muted); font-size: 17px; margin: 18px 0 28px; max-width: 680px; }
+      .state-switcher { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+      .state-switcher button { background: var(--paper); border: 1px solid var(--line); border-radius: 999px; color: var(--ink); cursor: pointer; font-size: 14px; font-weight: 700; padding: 9px 14px; }
+      .state-switcher button[aria-pressed="true"] { background: var(--purple-light); border-color: var(--purple); color: var(--purple-dark); }
+      .content { align-items: center; display: grid; gap: 40px; grid-template-columns: minmax(0, 390px) minmax(0, 1fr); }
+      .phone { background: #202028; border: 10px solid #202028; border-radius: 42px; box-shadow: 0 22px 50px rgba(24,24,27,.18); margin: 0 auto; max-width: 390px; padding: 8px; width: 100%; }
+      .screen { background: var(--paper); border-radius: 27px; min-height: 660px; overflow: hidden; position: relative; }
+      .notch { background: #202028; border-radius: 0 0 16px 16px; height: 22px; left: 50%; position: absolute; top: 0; transform: translateX(-50%); width: 118px; z-index: 2; }
+      .screen-scroll { height: 590px; overflow: hidden; padding: 42px 20px 16px; }
+      .screen .eyebrow { font-size: 10px; margin-bottom: 9px; }
+      .screen h2 { font-size: 29px; letter-spacing: -.045em; line-height: 1.1; margin: 0; }
+      .screen-description { color: var(--muted); font-size: 14px; line-height: 1.45; margin: 10px 0 16px; }
+      .counter { background: var(--soft); border-radius: 12px; display: inline-block; margin-bottom: 19px; padding: 8px 11px; }
+      .counter strong, .counter span { display: block; font-size: 12px; }
+      .counter span { color: var(--muted); font-size: 11px; margin-top: 1px; }
+      .counter.ready { background: var(--purple-light); }
+      .counter.ready strong, .counter.ready span { color: var(--purple-dark); }
+      .label { color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .1em; margin: 0 0 9px; }
+      .topic-list { display: grid; gap: 7px; }
+      .topic { align-items: center; border: 1px solid var(--line); border-radius: 12px; display: flex; font-size: 13px; font-weight: 650; justify-content: space-between; min-height: 41px; padding: 8px 11px; }
+      .topic.selected { background: var(--purple-light); border-color: var(--purple); color: var(--purple-dark); }
+      .topic b { color: #A1A1AA; font-size: 18px; font-weight: 500; line-height: 1; }
+      .topic.selected b { color: var(--purple); font-weight: 800; }
+      .footer { background: var(--paper); border-top: 1px solid var(--line); bottom: 0; left: 0; padding: 12px 20px 16px; position: absolute; right: 0; }
+      .validation { color: var(--error); font-size: 12px; margin: 0 0 8px; }
+      .continue { background: var(--purple); border: 0; border-radius: 12px; color: white; font-size: 15px; font-weight: 750; min-height: 48px; width: 100%; }
+      .continue.incomplete { background: #A1A1AA; }
+      .topics-screen { padding: 75px 24px 20px; }
+      .topics-screen h2 { font-size: 30px; }
+      .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+      .pill { background: var(--purple-light); border-radius: 8px; color: var(--purple-dark); font-size: 13px; font-weight: 650; padding: 8px 11px; }
+      .tabbar { background: var(--paper); border-top: 1px solid var(--line); bottom: 0; display: flex; height: 71px; left: 0; position: absolute; right: 0; }
+      .tab { color: var(--muted); flex: 1; font-size: 10px; font-weight: 650; padding-top: 11px; text-align: center; }
+      .tab span { display: block; font-size: 18px; line-height: 20px; }
+      .tab.active { color: var(--purple); }
+      .notes { display: grid; gap: 14px; }
+      .note { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+      .note h3 { font-size: 16px; letter-spacing: -.02em; margin: 0 0 7px; }
+      .note p { color: var(--muted); font-size: 14px; margin: 0; }
+      .badge { background: var(--purple-light); border-radius: 99px; color: var(--purple-dark); display: inline-block; font-size: 12px; font-weight: 750; margin-bottom: 10px; padding: 5px 9px; }
+      @media (max-width: 760px) { .page { padding: 32px 16px 48px; } .content { grid-template-columns: 1fr; gap: 28px; } .phone { max-width: 376px; } }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <p class="eyebrow">RETAINMAXX · REVIEW SURFACE</p>
+      <h1>Choose a few things worth holding on to.</h1>
+      <p class="intro">A reviewable rendering of the implemented first-run flow. Switch states to inspect empty-selection validation, selection feedback, and the saved Topics destination.</p>
+      <div class="state-switcher" role="group" aria-label="Preview state">
+        <button type="button" data-state="empty" aria-pressed="true">Empty selection</button>
+        <button type="button" data-state="selected" aria-pressed="false">Five selected</button>
+        <button type="button" data-state="topics" aria-pressed="false">Saved Topics</button>
+      </div>
+      <section class="content" aria-label="Onboarding flow preview">
+        <div class="phone">
+          <div class="screen" id="phone-screen">
+            <div class="notch" aria-hidden="true"></div>
+            <div class="screen-scroll" id="onboarding-view">
+              <p class="eyebrow">WELCOME TO RETAINMAXX</p>
+              <h2>What do you want to remember?</h2>
+              <p class="screen-description">Pick at least five topics. We’ll use them to organize the useful things you save.</p>
+              <div class="counter" id="counter"><strong id="count-label">0 of 5 selected</strong><span id="count-helper">5 more to go</span></div>
+              <p class="label">CHOOSE YOUR INTERESTS</p>
+              <div class="topic-list" id="topic-list"></div>
+            </div>
+            <div class="topics-screen" id="topics-view" hidden>
+              <p class="eyebrow">MY TOPICS</p>
+              <h2>Your saved interests</h2>
+              <p class="screen-description">The things you save will be organized into these interests.</p>
+              <div class="pills" id="topic-pills"></div>
+            </div>
+            <div class="footer" id="onboarding-footer">
+              <p class="validation" id="validation">Choose 5 more topics to continue.</p>
+              <button class="continue incomplete" id="continue" type="button">Continue</button>
+            </div>
+            <div class="tabbar" id="tabbar" hidden aria-hidden="true">
+              <div class="tab"><span>↓</span>Save video</div><div class="tab active"><span>#</span>My topics</div><div class="tab"><span>◉</span>My account</div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes" aria-label="Implemented behavior notes">
+          <div class="note"><span class="badge">45 curated topics</span><h3>A broad, clear starting catalogue</h3><p>Topics span work, money, health, home, culture, technology, learning, and everyday life—without asking a new user to create taxonomy up front.</p></div>
+          <div class="note"><span class="badge">Minimum: 5</span><h3>Helpful feedback at the decision point</h3><p>The count stays visible as topics are picked. Continuing too early gives an adjacent, screen-reader-announced explanation of what remains.</p></div>
+          <div class="note"><span class="badge">Local persistence</span><h3>Completion survives a relaunch</h3><p>After a valid selection is stored, the first-run screen is skipped and the app enters the existing tab shell on My Topics with the chosen chips.</p></div>
+          <div class="note"><span class="badge">Honest MVP boundary</span><h3>Video capture remains a placeholder</h3><p>The existing Save Video tab clearly says saving and summarizing are coming soon; this slice does not imply that an unbuilt processing pipeline works.</p></div>
+        </aside>
+      </section>
+    </main>
+    <script>
+      const sampleTopics = ['AI & Machine Learning', 'Personal Finance', 'Fitness', 'Travel', 'Books & Writing', 'Technology'];
+      const listTopics = ['AI & Machine Learning', 'Personal Finance', 'Fitness', 'Travel', 'Books & Writing', 'Nutrition', 'Career Growth'];
+      const buttons = [...document.querySelectorAll('[data-state]')];
+      const list = document.querySelector('#topic-list');
+      const pills = document.querySelector('#topic-pills');
+      const counter = document.querySelector('#counter');
+      const countLabel = document.querySelector('#count-label');
+      const countHelper = document.querySelector('#count-helper');
+      const validation = document.querySelector('#validation');
+      const continueButton = document.querySelector('#continue');
+      const onboardingView = document.querySelector('#onboarding-view');
+      const onboardingFooter = document.querySelector('#onboarding-footer');
+      const topicsView = document.querySelector('#topics-view');
+      const tabbar = document.querySelector('#tabbar');
+      function render(state) {
+        const selected = state === 'selected';
+        const isTopics = state === 'topics';
+        buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.state === state)));
+        onboardingView.hidden = isTopics; onboardingFooter.hidden = isTopics; topicsView.hidden = !isTopics; tabbar.hidden = !isTopics;
+        list.innerHTML = listTopics.map((topic, index) => `<div class="topic ${selected && index < 5 ? 'selected' : ''}"><span>${topic}</span><b>${selected && index < 5 ? '✓' : '+'}</b></div>`).join('');
+        pills.innerHTML = sampleTopics.map((topic) => `<span class="pill">${topic}</span>`).join('');
+        if (selected) { counter.classList.add('ready'); countLabel.textContent = '5 of 5 selected'; countHelper.textContent = 'You’re ready to continue.'; validation.hidden = true; continueButton.classList.remove('incomplete'); }
+        else { counter.classList.remove('ready'); countLabel.textContent = '0 of 5 selected'; countHelper.textContent = '5 more to go'; validation.hidden = false; continueButton.classList.add('incomplete'); }
+      }
+      buttons.forEach((button) => button.addEventListener('click', () => render(button.dataset.state)));
+      render('empty');
+    </script>
+  </body>
+</html>

@@ -2,15 +2,18 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '../theme/colors';
 
-export default function MyTopicsScreen() {
+export default function MyTopicsScreen({ selectedTopics = [] }) {
   return (
     <View style={styles.container}>
       <Text style={styles.eyebrow}>MY TOPICS</Text>
       <Text style={styles.title}>Your saved interests</Text>
-      <Text style={styles.description}>Create topics to keep the videos you care about organized.</Text>
-      <View style={styles.emptyState}>
-        <Text style={styles.emptyTitle}>No topics yet</Text>
-        <Text style={styles.emptyText}>Your first saved video can start one.</Text>
+      <Text style={styles.description}>The things you save will be organized into these interests.</Text>
+      <View style={styles.topicList}>
+        {selectedTopics.map((topic) => (
+          <View key={topic} style={styles.topicPill}>
+            <Text style={styles.topicText}>{topic}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -21,7 +24,7 @@ const styles = StyleSheet.create({
   eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '800', letterSpacing: 1.1, marginBottom: 10 },
   title: { color: colors.text, fontSize: 30, fontWeight: '800', letterSpacing: -0.5 },
   description: { color: colors.muted, fontSize: 16, lineHeight: 23, marginTop: 10 },
-  emptyState: { marginTop: 32, padding: 20, borderRadius: 16, backgroundColor: colors.primarySoft },
-  emptyTitle: { color: colors.text, fontSize: 17, fontWeight: '700' },
-  emptyText: { color: colors.muted, fontSize: 14, marginTop: 6 },
+  topicList: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 28 },
+  topicPill: { backgroundColor: colors.primarySoft, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 9 },
+  topicText: { color: colors.primaryDark, fontSize: 14, fontWeight: '600' },
 });
