@@ -14,5 +14,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "supabase": "^2.116.0"
+  }
 }

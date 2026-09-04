@@ -1,0 +1,7 @@
+/firstmate
+/app/node_modules/
+/app/.expo/
+/app/.env
+/app/.env.*
+!/app/.env.example
+.DS_Store
