@@ -8,13 +8,12 @@ export default function SaveVideoScreen() {
       <Text style={styles.eyebrow}>SAVE VIDEO</Text>
       <Text style={styles.title}>Keep a video for later</Text>
       <Text style={styles.description}>
-        Paste a video link and we’ll save it to the topic you choose.
+        Saving and summarizing videos is coming soon. Your topics are ready when it does.
       </Text>
       <TextInput
         accessibilityLabel="Video link"
-        autoCapitalize="none"
-        autoCorrect={false}
-        placeholder="Paste a video link"
+        editable={false}
+        placeholder="Video saving is coming soon"
         placeholderTextColor={colors.muted}
         style={styles.input}
       />
