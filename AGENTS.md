@@ -5,6 +5,7 @@ RetainMaxx is a mobile-first application designed to help users retain useful in
 # Project Rules
 
 - Use [system-design.md](system-design.md) as the source of truth for product design and UI decisions.
+- Supabase's repository-local configuration is [supabase/config.toml](supabase/config.toml); tracked schema changes belong in `supabase/migrations/`.
 
 ## Maintaining this file
 
