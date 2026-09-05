@@ -17,7 +17,10 @@ const INITIAL_QUEUE = [
   { id: 'mobility', title: 'Morning mobility flow', topic: 'Fitness', status: 'Processing', progress: 64 },
   { id: 'travel', title: 'A simpler travel planning system', topic: 'Travel', status: 'Queued' },
   { id: 'notes', title: 'A practical AI note-taking workflow', topic: 'AI & Machine Learning', status: 'Ready' },
+  { id: 'groceries', title: 'A better grocery budget routine', topic: 'Personal Finance', status: 'Queued' },
+  { id: 'recovery', title: 'A five-minute recovery reset', topic: 'Fitness', status: 'Ready' },
 ];
+const QUEUE_PREVIEW_LIMIT = 3;
 
 function isFullUrl(value) {
   try {
@@ -99,9 +102,12 @@ export default function SaveVideoScreen({ selectedTopics = [] }) {
   const [link, setLink] = useState('');
   const [feedback, setFeedback] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isShowingAll, setIsShowingAll] = useState(false);
   const [queue, setQueue] = useState(INITIAL_QUEUE);
   const timerRef = useRef(null);
   const automaticTopic = selectedTopics.includes('Fitness') ? 'Fitness' : selectedTopics[0] ?? 'Fitness';
+  const hasMoreQueueItems = queue.length > QUEUE_PREVIEW_LIMIT;
+  const visibleQueue = isShowingAll ? queue : queue.slice(0, QUEUE_PREVIEW_LIMIT);
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
@@ -123,6 +129,7 @@ export default function SaveVideoScreen({ selectedTopics = [] }) {
       { id: `new-${Date.now()}`, title: 'New video link', topic: automaticTopic, status: 'Queued' },
       ...currentQueue,
     ]);
+    setIsShowingAll(false);
     setLink('');
     setFeedback({ type: 'success', message: `Added to your queue · ${automaticTopic} matched automatically.` });
   }
@@ -160,8 +167,25 @@ export default function SaveVideoScreen({ selectedTopics = [] }) {
       <Text accessibilityRole="header" style={styles.title}>Your video queue</Text>
       <Text style={styles.description}>Keep useful short videos moving into the topics you already follow.</Text>
 
-      <View accessibilityLabel="Video queue" style={styles.queue}>
-        {queue.map((item) => <QueueRow item={item} key={item.id} />)}
+      <View accessibilityLabel="Video queue" style={styles.queueSection}>
+        {hasMoreQueueItems ? (
+          <View style={styles.queueHeader}>
+            <Text style={styles.queueCount}>{queue.length} videos in queue</Text>
+            <Pressable
+              accessibilityHint={isShowingAll ? 'Shows only the three most recent videos' : 'Shows every video in the queue'}
+              accessibilityLabel={isShowingAll ? 'Show fewer queued videos' : 'View all queued videos'}
+              accessibilityRole="button"
+              accessibilityState={{ expanded: isShowingAll }}
+              onPress={() => setIsShowingAll((currentValue) => !currentValue)}
+              style={({ pressed }) => [styles.viewAllButton, pressed && styles.viewAllButtonPressed]}
+            >
+              <Text style={styles.viewAllButtonText}>{isShowingAll ? 'Show less' : 'View all'}</Text>
+            </Pressable>
+          </View>
+        ) : null}
+        <View style={styles.queue}>
+          {visibleQueue.map((item) => <QueueRow item={item} key={item.id} />)}
+        </View>
       </View>
 
       <View style={styles.saveSection}>
@@ -210,7 +234,13 @@ const styles = StyleSheet.create({
   eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '800', letterSpacing: 1.15, marginBottom: 8 },
   title: { color: colors.text, fontSize: 30, fontWeight: '800', letterSpacing: -0.65, lineHeight: 36 },
   description: { color: colors.muted, fontSize: 15, lineHeight: 22, marginTop: 8 },
-  queue: { gap: 10, marginTop: 22 },
+  queueSection: { marginTop: 22 },
+  queueHeader: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 9 },
+  queueCount: { color: colors.muted, fontSize: 12, fontWeight: '700' },
+  viewAllButton: { borderRadius: 8, minHeight: 30, justifyContent: 'center', paddingHorizontal: 8 },
+  viewAllButtonPressed: { backgroundColor: colors.primarySoft },
+  viewAllButtonText: { color: colors.primaryDark, fontSize: 13, fontWeight: '800' },
+  queue: { gap: 10 },
   queueRow: { alignItems: 'center', backgroundColor: colors.surface, borderColor: colors.border, borderRadius: 16, borderWidth: 1, flexDirection: 'row', minHeight: 76, paddingHorizontal: 13, paddingVertical: 11 },
   queueIcon: { alignItems: 'center', backgroundColor: colors.primarySoft, borderRadius: 11, height: 40, justifyContent: 'center', marginRight: 11, width: 40 },
   queueIconReady: { backgroundColor: '#DDF8E5' },
