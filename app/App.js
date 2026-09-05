@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 
 import BottomTabBar from './src/navigation/BottomTabBar';
+import AllSavesScreen from './src/screens/AllSavesScreen';
 import MyAccountScreen from './src/screens/MyAccountScreen';
 import MyTopicsScreen from './src/screens/MyTopicsScreen';
 import OnboardingTopicsScreen from './src/screens/OnboardingTopicsScreen';
@@ -13,6 +14,7 @@ import {
   saveOnboardingPreferences,
 } from './src/onboarding/topicPreferences.cjs';
 import { colors } from './src/theme/colors';
+import { INITIAL_VIDEO_QUEUE } from './src/videoQueue/queueData';
 
 const screens = {
   saveVideo: SaveVideoScreen,
@@ -22,9 +24,11 @@ const screens = {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('saveVideo');
+  const [isViewingAllSaves, setIsViewingAllSaves] = useState(false);
   const [hasLoadedPreferences, setHasLoadedPreferences] = useState(false);
   const [selectedTopics, setSelectedTopics] = useState([]);
-  const ActiveScreen = screens[activeTab];
+  const [videoQueue, setVideoQueue] = useState(INITIAL_VIDEO_QUEUE);
+  const ActiveScreen = isViewingAllSaves ? AllSavesScreen : screens[activeTab];
 
   useEffect(() => {
     async function loadPreferences() {
@@ -44,6 +48,11 @@ export default function App() {
   function handleOnboardingComplete(topics) {
     setSelectedTopics(topics);
     setActiveTab('topics');
+  }
+
+  function handleTabChange(tab) {
+    setActiveTab(tab);
+    setIsViewingAllSaves(false);
   }
 
   if (!hasLoadedPreferences) {
@@ -69,9 +78,15 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="auto" />
       <View style={styles.content}>
-        <ActiveScreen selectedTopics={selectedTopics} />
+        <ActiveScreen
+          onBack={() => setIsViewingAllSaves(false)}
+          onStoreVideo={(video) => setVideoQueue((currentQueue) => [video, ...currentQueue])}
+          onViewAll={() => setIsViewingAllSaves(true)}
+          queue={videoQueue}
+          selectedTopics={selectedTopics}
+        />
       </View>
-      <BottomTabBar activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomTabBar activeTab={activeTab} onTabChange={handleTabChange} />
     </SafeAreaView>
   );
 }

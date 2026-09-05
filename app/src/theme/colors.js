@@ -8,5 +8,8 @@ export const colors = {
   muted: '#71717A',
   mutedLight: '#A1A1AA',
   border: '#E5E5EA',
+  success: '#16A34A',
+  warning: '#F59E0B',
+  info: '#2563EB',
   error: '#DC2626',
 };

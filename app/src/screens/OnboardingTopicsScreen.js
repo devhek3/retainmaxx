@@ -13,6 +13,7 @@ import {
   TOPICS,
   hasMinimumTopicSelection,
 } from '../onboarding/topicCatalog.cjs';
+import Wordmark from '../components/Wordmark';
 import { colors } from '../theme/colors';
 
 export default function OnboardingTopicsScreen({ onComplete, savePreferences }) {
@@ -87,7 +88,8 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
         keyExtractor={(topic) => topic}
         ListHeaderComponent={(
           <View style={styles.header}>
-            <Text style={styles.eyebrow}>WELCOME TO RETAINMAXX</Text>
+            <Wordmark style={styles.wordmark} />
+            <Text style={styles.eyebrow}>WELCOME</Text>
             <Text style={styles.title}>What do you want to remember?</Text>
             <Text style={styles.description}>
               Pick at least {MINIMUM_TOPIC_SELECTION} topics. We’ll use them to organize the useful things you save.
@@ -133,7 +135,8 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.surface },
   listContent: { paddingHorizontal: 20, paddingBottom: 24 },
-  header: { paddingTop: 28, paddingBottom: 20 },
+  header: { paddingTop: 24, paddingBottom: 20 },
+  wordmark: { marginBottom: 26 },
   eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '700', letterSpacing: 1.1, marginBottom: 12 },
   title: { color: colors.text, fontSize: 32, fontWeight: '700', letterSpacing: -0.8, lineHeight: 38 },
   description: { color: colors.muted, fontSize: 16, lineHeight: 23, marginTop: 12 },
