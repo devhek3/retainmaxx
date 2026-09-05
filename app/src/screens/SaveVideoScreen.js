@@ -8,19 +8,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { Check, Clock3, Link2, LoaderCircle } from 'lucide-react-native';
 
+import VideoQueueRow from '../components/VideoQueueRow';
 import Wordmark from '../components/Wordmark';
 import { colors } from '../theme/colors';
-
-const INITIAL_QUEUE = [
-  { id: 'mobility', title: 'Morning mobility flow', topic: 'Fitness', status: 'Processing', progress: 64 },
-  { id: 'travel', title: 'A simpler travel planning system', topic: 'Travel', status: 'Queued' },
-  { id: 'notes', title: 'A practical AI note-taking workflow', topic: 'AI & Machine Learning', status: 'Ready' },
-  { id: 'groceries', title: 'A better grocery budget routine', topic: 'Personal Finance', status: 'Queued' },
-  { id: 'recovery', title: 'A five-minute recovery reset', topic: 'Fitness', status: 'Ready' },
-];
-const QUEUE_PREVIEW_LIMIT = 3;
+import { QUEUE_PREVIEW_LIMIT } from '../videoQueue/queueData';
 
 function isFullUrl(value) {
   try {
@@ -29,41 +21,6 @@ function isFullUrl(value) {
   } catch {
     return false;
   }
-}
-
-function QueueRow({ item }) {
-  const isProcessing = item.status === 'Processing';
-  const isReady = item.status === 'Ready';
-  const StatusIcon = isProcessing ? LoaderCircle : isReady ? Check : Clock3;
-
-  return (
-    <View
-      accessible
-      accessibilityLabel={`${item.title}. ${item.topic}. ${item.status}${isProcessing ? `, ${item.progress}% complete` : ''}`}
-      style={styles.queueRow}
-    >
-      <View style={[styles.queueIcon, isReady && styles.queueIconReady]}>
-        <Link2 color={isReady ? colors.success : colors.primary} size={19} strokeWidth={2.2} />
-      </View>
-      <View style={styles.queueDetails}>
-        <Text numberOfLines={1} style={styles.queueTitle}>{item.title}</Text>
-        <Text numberOfLines={1} style={styles.queueTopic}>{item.topic} · automatic match</Text>
-        {isProcessing ? (
-          <View
-            accessibilityRole="progressbar"
-            accessibilityValue={{ min: 0, max: 100, now: item.progress }}
-            style={styles.progressTrack}
-          >
-            <View style={[styles.progressFill, { width: `${item.progress}%` }]} />
-          </View>
-        ) : null}
-      </View>
-      <View style={[styles.statusBadge, isReady && styles.statusBadgeReady, isProcessing && styles.statusBadgeProcessing]}>
-        <StatusIcon color={isReady ? colors.success : isProcessing ? colors.primaryDark : colors.muted} size={13} strokeWidth={2.5} />
-        <Text style={[styles.statusText, isReady && styles.statusTextReady, isProcessing && styles.statusTextProcessing]}>{item.status}</Text>
-      </View>
-    </View>
-  );
 }
 
 function Feedback({ feedback, onRetry }) {
@@ -98,16 +55,13 @@ function Feedback({ feedback, onRetry }) {
   );
 }
 
-export default function SaveVideoScreen({ selectedTopics = [] }) {
+export default function SaveVideoScreen({ selectedTopics = [], queue = [], onStoreVideo = () => {}, onViewAll = () => {} }) {
   const [link, setLink] = useState('');
   const [feedback, setFeedback] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isShowingAll, setIsShowingAll] = useState(false);
-  const [queue, setQueue] = useState(INITIAL_QUEUE);
   const timerRef = useRef(null);
   const automaticTopic = selectedTopics.includes('Fitness') ? 'Fitness' : selectedTopics[0] ?? 'Fitness';
   const hasMoreQueueItems = queue.length > QUEUE_PREVIEW_LIMIT;
-  const visibleQueue = isShowingAll ? queue : queue.slice(0, QUEUE_PREVIEW_LIMIT);
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
@@ -125,11 +79,7 @@ export default function SaveVideoScreen({ selectedTopics = [] }) {
       return;
     }
 
-    setQueue((currentQueue) => [
-      { id: `new-${Date.now()}`, title: 'New video link', topic: automaticTopic, status: 'Queued' },
-      ...currentQueue,
-    ]);
-    setIsShowingAll(false);
+    onStoreVideo({ id: `new-${Date.now()}`, title: 'New video link', topic: automaticTopic, status: 'Queued' });
     setLink('');
     setFeedback({ type: 'success', message: `Added to your queue · ${automaticTopic} matched automatically.` });
   }
@@ -172,19 +122,18 @@ export default function SaveVideoScreen({ selectedTopics = [] }) {
           <View style={styles.queueHeader}>
             <Text style={styles.queueCount}>{queue.length} videos in queue</Text>
             <Pressable
-              accessibilityHint={isShowingAll ? 'Shows only the three most recent videos' : 'Shows every video in the queue'}
-              accessibilityLabel={isShowingAll ? 'Show fewer queued videos' : 'View all queued videos'}
+              accessibilityHint="Opens the complete saved-video queue"
+              accessibilityLabel="View all queued videos"
               accessibilityRole="button"
-              accessibilityState={{ expanded: isShowingAll }}
-              onPress={() => setIsShowingAll((currentValue) => !currentValue)}
+              onPress={onViewAll}
               style={({ pressed }) => [styles.viewAllButton, pressed && styles.viewAllButtonPressed]}
             >
-              <Text style={styles.viewAllButtonText}>{isShowingAll ? 'Show less' : 'View all'}</Text>
+              <Text style={styles.viewAllButtonText}>View all</Text>
             </Pressable>
           </View>
         ) : null}
         <View style={styles.queue}>
-          {visibleQueue.map((item) => <QueueRow item={item} key={item.id} />)}
+          {queue.slice(0, QUEUE_PREVIEW_LIMIT).map((item) => <VideoQueueRow item={item} key={item.id} />)}
         </View>
       </View>
 
@@ -241,20 +190,6 @@ const styles = StyleSheet.create({
   viewAllButtonPressed: { backgroundColor: colors.primarySoft },
   viewAllButtonText: { color: colors.primaryDark, fontSize: 13, fontWeight: '800' },
   queue: { gap: 10 },
-  queueRow: { alignItems: 'center', backgroundColor: colors.surface, borderColor: colors.border, borderRadius: 16, borderWidth: 1, flexDirection: 'row', minHeight: 76, paddingHorizontal: 13, paddingVertical: 11 },
-  queueIcon: { alignItems: 'center', backgroundColor: colors.primarySoft, borderRadius: 11, height: 40, justifyContent: 'center', marginRight: 11, width: 40 },
-  queueIconReady: { backgroundColor: '#DDF8E5' },
-  queueDetails: { flex: 1, minWidth: 0, paddingRight: 8 },
-  queueTitle: { color: colors.text, fontSize: 14, fontWeight: '700', letterSpacing: -0.15 },
-  queueTopic: { color: colors.muted, fontSize: 12, lineHeight: 17, marginTop: 2 },
-  progressTrack: { backgroundColor: colors.primarySoft, borderRadius: 99, height: 4, marginTop: 7, overflow: 'hidden', width: '100%' },
-  progressFill: { backgroundColor: colors.primary, borderRadius: 99, height: '100%' },
-  statusBadge: { alignItems: 'center', backgroundColor: colors.backgroundSecondary, borderRadius: 8, flexDirection: 'row', gap: 4, justifyContent: 'center', paddingVertical: 5, width: 88 },
-  statusBadgeProcessing: { backgroundColor: colors.primarySoft },
-  statusBadgeReady: { backgroundColor: '#DDF8E5' },
-  statusText: { color: colors.muted, fontSize: 11, fontWeight: '700' },
-  statusTextProcessing: { color: colors.primaryDark },
-  statusTextReady: { color: colors.success },
   saveSection: { marginTop: 24 },
   fieldLabel: { color: colors.text, fontSize: 14, fontWeight: '700', marginBottom: 8 },
   inputRow: { alignItems: 'center', flexDirection: 'row', gap: 8 },
