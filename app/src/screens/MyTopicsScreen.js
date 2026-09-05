@@ -9,6 +9,7 @@ import {
 } from 'lucide-react-native';
 
 import { colors } from '../theme/colors';
+import Wordmark from '../components/Wordmark';
 
 const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 const TOPIC_ACCENTS = [
@@ -39,7 +40,7 @@ function TopicRow({ topic, index }) {
       style={styles.topicRow}
     >
       <View style={[styles.topicIcon, { backgroundColor: accent.backgroundColor }]}>
-        <TopicIcon accessible={false} color={accent.color} size={20} strokeWidth={2.25} />
+        <TopicIcon color={accent.color} size={20} strokeWidth={2.25} />
       </View>
       <View style={styles.topicDetails}>
         <Text style={styles.topicName}>{topic}</Text>
@@ -84,6 +85,7 @@ function TopicsHeader({ topicCount }) {
 
   return (
     <View style={styles.header}>
+      <Wordmark style={styles.wordmark} />
       <Text style={styles.eyebrow}>MY TOPICS</Text>
 
       {hasTopics ? <WeeklyMomentum /> : null}
@@ -123,8 +125,9 @@ export default function MyTopicsScreen({ selectedTopics = [] }) {
 }
 
 const styles = StyleSheet.create({
-  content: { flexGrow: 1, paddingHorizontal: 20, paddingTop: 28, paddingBottom: 32 },
+  content: { flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 32 },
   header: { paddingBottom: 8 },
+  wordmark: { marginBottom: 26 },
   eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '800', letterSpacing: 1.2, marginBottom: 10 },
   sectionHeader: { alignItems: 'baseline', flexDirection: 'row', justifyContent: 'space-between', marginTop: 28, marginBottom: 12 },
   sectionTitle: { color: colors.text, flex: 1, fontSize: 18, fontWeight: '700', letterSpacing: -0.25 },
