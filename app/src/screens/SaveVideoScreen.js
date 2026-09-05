@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   queueTopic: { color: colors.muted, fontSize: 12, lineHeight: 17, marginTop: 2 },
   progressTrack: { backgroundColor: colors.primarySoft, borderRadius: 99, height: 4, marginTop: 7, overflow: 'hidden', width: '100%' },
   progressFill: { backgroundColor: colors.primary, borderRadius: 99, height: '100%' },
-  statusBadge: { alignItems: 'center', backgroundColor: colors.backgroundSecondary, borderRadius: 8, flexDirection: 'row', gap: 4, paddingHorizontal: 7, paddingVertical: 5 },
+  statusBadge: { alignItems: 'center', backgroundColor: colors.backgroundSecondary, borderRadius: 8, flexDirection: 'row', gap: 4, justifyContent: 'center', paddingVertical: 5, width: 88 },
   statusBadgeProcessing: { backgroundColor: colors.primarySoft },
   statusBadgeReady: { backgroundColor: '#DDF8E5' },
   statusText: { color: colors.muted, fontSize: 11, fontWeight: '700' },
