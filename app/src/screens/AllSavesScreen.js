@@ -1,45 +1,41 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ArrowLeft } from 'lucide-react-native';
 
-import VideoQueueRow from '../components/VideoQueueRow';
+import SavedVideoRow from '../components/SavedVideoRow';
 import Wordmark from '../components/Wordmark';
 import { colors } from '../theme/colors';
+import { SAVED_VIDEOS } from '../videoQueue/savedVideos';
 
-export default function AllSavesScreen({ queue = [], onBack }) {
+export default function AllSavesScreen({ onBack }) {
   return (
     <ScrollView accessibilityLabel="All saved videos" contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
       <Wordmark style={styles.wordmark} />
       <Pressable
-        accessibilityHint="Returns to the Save video screen"
-        accessibilityLabel="Back to Save video"
+        accessibilityHint="Returns to the Library screen"
+        accessibilityLabel="Back to Library"
         accessibilityRole="button"
         onPress={onBack}
         style={({ pressed }) => [styles.backButton, pressed && styles.backButtonPressed]}
       >
-        <ArrowLeft color={colors.primaryDark} size={18} strokeWidth={2.4} />
-        <Text style={styles.backButtonText}>Save video</Text>
+        <ArrowLeft color={colors.primary} size={19} strokeWidth={2.2} />
+        <Text style={styles.backButtonText}>Library</Text>
       </Pressable>
-      <Text style={styles.eyebrow}>ALL SAVES</Text>
-      <Text accessibilityRole="header" style={styles.title}>Every video in your queue</Text>
-      <Text style={styles.description}>
-        {queue.length} {queue.length === 1 ? 'video is' : 'videos are'} waiting to be organized.
-      </Text>
-
-      <View accessibilityLabel="Complete video queue" style={styles.queue}>
-        {queue.map((item) => <VideoQueueRow item={item} key={item.id} />)}
+      <Text accessibilityRole="header" style={styles.title}>All saved videos</Text>
+      <Text style={styles.description}>Your complete knowledge library.</Text>
+      <View style={styles.list}>
+        {SAVED_VIDEOS.map((video) => <SavedVideoRow key={video.id} video={video} />)}
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 32 },
-  wordmark: { marginBottom: 26 },
-  backButton: { alignItems: 'center', alignSelf: 'flex-start', borderRadius: 8, flexDirection: 'row', gap: 5, marginBottom: 20, minHeight: 32, paddingHorizontal: 8 },
+  content: { flexGrow: 1, paddingBottom: 28, paddingHorizontal: 20, paddingTop: 30 },
+  wordmark: { marginBottom: 18 },
+  backButton: { alignItems: 'center', alignSelf: 'flex-start', borderRadius: 8, flexDirection: 'row', gap: 5, minHeight: 36, paddingRight: 8 },
   backButtonPressed: { backgroundColor: colors.primarySoft },
-  backButtonText: { color: colors.primaryDark, fontSize: 14, fontWeight: '800' },
-  eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '800', letterSpacing: 1.15, marginBottom: 8 },
-  title: { color: colors.text, fontSize: 30, fontWeight: '800', letterSpacing: -0.65, lineHeight: 36 },
-  description: { color: colors.muted, fontSize: 15, lineHeight: 22, marginTop: 8 },
-  queue: { gap: 10, marginTop: 22 },
+  backButtonText: { color: colors.primary, fontSize: 14, fontWeight: '600' },
+  title: { color: colors.text, fontSize: 28, fontWeight: '700', letterSpacing: -0.7, marginTop: 18 },
+  description: { color: colors.muted, fontSize: 15, marginTop: 5 },
+  list: { gap: 11, marginTop: 22 },
 });

@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Clock3, House, LayoutGrid } from 'lucide-react-native';
+import { Clock3, Grid2X2, House } from 'lucide-react-native';
 
 import { colors } from '../theme/colors';
 
 const tabs = [
   { key: 'saveVideo', label: 'Library', Icon: House },
-  { key: 'topics', label: 'Topics', Icon: LayoutGrid },
+  { key: 'topics', label: 'Topics', Icon: Grid2X2 },
   { key: 'account', label: 'Review', Icon: Clock3 },
 ];
 
@@ -28,9 +28,9 @@ export default function BottomTabBar({ activeTab, onTabChange }) {
             <Icon
               accessible={false}
               color={iconColor}
-              fill={isActive && key === 'topics' ? iconColor : 'none'}
-              size={25}
-              strokeWidth={2}
+              fill={isActive && key !== 'account' ? iconColor : 'none'}
+              size={24}
+              strokeWidth={2.2}
             />
             <Text style={[styles.label, isActive && styles.activeText]}>{label}</Text>
           </Pressable>
@@ -43,16 +43,16 @@ export default function BottomTabBar({ activeTab, onTabChange }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.surface,
-    borderTopColor: colors.border,
+    borderTopColor: '#ECECF0',
     borderTopWidth: 1,
     flexDirection: 'row',
-    minHeight: 76,
-    paddingBottom: 10,
-    paddingHorizontal: 12,
+    minHeight: 74,
+    paddingBottom: 9,
+    paddingHorizontal: 18,
     paddingTop: 9,
   },
-  tab: { alignItems: 'center', borderRadius: 12, flex: 1, gap: 5, justifyContent: 'center' },
+  tab: { alignItems: 'center', borderRadius: 12, flex: 1, gap: 4, justifyContent: 'center' },
   pressed: { backgroundColor: colors.primarySoft },
-  label: { color: '#7D8595', fontSize: 12, fontWeight: '600' },
+  label: { color: '#737987', fontSize: 12, fontWeight: '500' },
   activeText: { color: colors.primary },
 });

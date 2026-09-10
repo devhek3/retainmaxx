@@ -14,7 +14,6 @@ import {
   saveOnboardingPreferences,
 } from './src/onboarding/topicPreferences.cjs';
 import { colors } from './src/theme/colors';
-import { INITIAL_VIDEO_QUEUE } from './src/videoQueue/queueData';
 
 const screens = {
   saveVideo: SaveVideoScreen,
@@ -27,7 +26,6 @@ export default function App() {
   const [isViewingAllSaves, setIsViewingAllSaves] = useState(false);
   const [hasLoadedPreferences, setHasLoadedPreferences] = useState(false);
   const [selectedTopics, setSelectedTopics] = useState([]);
-  const [videoQueue, setVideoQueue] = useState(INITIAL_VIDEO_QUEUE);
   const ActiveScreen = isViewingAllSaves ? AllSavesScreen : screens[activeTab];
 
   useEffect(() => {
@@ -80,9 +78,7 @@ export default function App() {
       <View style={styles.content}>
         <ActiveScreen
           onBack={() => setIsViewingAllSaves(false)}
-          onStoreVideo={(video) => setVideoQueue((currentQueue) => [video, ...currentQueue])}
           onViewAll={() => setIsViewingAllSaves(true)}
-          queue={videoQueue}
           selectedTopics={selectedTopics}
         />
       </View>
