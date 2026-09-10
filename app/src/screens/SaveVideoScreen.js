@@ -17,7 +17,7 @@ const FILTERS = [
   { label: 'Finance', topic: 'Finance' },
 ];
 
-export default function SaveVideoScreen({ onViewAll = () => {} }) {
+export default function SaveVideoScreen({ onSelectVideo, onViewAll }) {
   const [activeFilter, setActiveFilter] = useState('All');
   const selectedFilter = FILTERS.find(({ label }) => label === activeFilter);
   const visibleVideos = selectedFilter?.topic
@@ -88,7 +88,9 @@ export default function SaveVideoScreen({ onViewAll = () => {} }) {
       </View>
 
       <View accessibilityLiveRegion="polite" style={styles.list}>
-        {visibleVideos.map((video) => <SavedVideoRow key={video.id} video={video} />)}
+        {visibleVideos.map((video) => (
+          <SavedVideoRow key={video.id} onPress={onSelectVideo} video={video} />
+        ))}
         {visibleVideos.length === 0 ? (
           <AppText style={styles.emptyText}>No saved videos in this topic yet.</AppText>
         ) : null}
