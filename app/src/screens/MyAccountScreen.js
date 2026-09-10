@@ -8,8 +8,8 @@ export default function MyAccountScreen() {
     <View style={styles.container}>
       <Wordmark style={styles.wordmark} />
       <Text style={styles.eyebrow}>REVIEW</Text>
-      <Text style={styles.title}>Review your ideas</Text>
-      <Text style={styles.description}>Your saved ideas will be ready to revisit here.</Text>
+      <Text style={styles.title}>Review your knowledge</Text>
+      <Text style={styles.description}>Revisit your saved ideas and keep useful knowledge fresh.</Text>
       <View style={styles.avatar} accessibilityLabel="Profile placeholder">
         <Text style={styles.avatarText}>You</Text>
       </View>
