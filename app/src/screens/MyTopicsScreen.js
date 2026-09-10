@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import {
   BarChart3,
   BookOpen,
@@ -16,7 +16,9 @@ import {
 } from 'lucide-react-native';
 import Svg, { Defs, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 
+import AppText from '../components/AppText';
 import { colors } from '../theme/colors';
+import { fontWeights } from '../theme/typography';
 
 const TOPIC_ICONS = {
   'AI & Machine Learning': Sparkles,
@@ -50,10 +52,10 @@ function BrandHeader() {
   return (
     <View style={styles.brandHeader}>
       <View>
-        <Text accessibilityRole="header" style={styles.wordmark}>
-          Retain<Text style={styles.wordmarkAccent}>Maxx</Text>
-        </Text>
-        <Text style={styles.tagline}>Browse by topic.</Text>
+        <AppText accessibilityRole="header" fontRole="display" style={styles.wordmark}>
+          Retain<AppText style={styles.wordmarkAccent}>Maxx</AppText>
+        </AppText>
+        <AppText style={styles.tagline}>Browse by topic.</AppText>
       </View>
       <View accessible accessibilityLabel="Search" style={styles.searchButton}>
         <Search color="#111522" size={25} strokeWidth={2.1} />
@@ -81,8 +83,8 @@ function TopicCard({ topic, index }) {
         strokeWidth={2}
       />
       <View style={styles.topicCardBody}>
-        <Text numberOfLines={2} style={styles.topicName}>{topic}</Text>
-        <Text style={styles.topicCount}>{activity.count} {countLabel}</Text>
+        <AppText numberOfLines={2} style={styles.topicName}>{topic}</AppText>
+        <AppText style={styles.topicCount}>{activity.count} {countLabel}</AppText>
       </View>
       <ChevronRight accessible={false} color="#374151" size={21} strokeWidth={2} style={styles.topicChevron} />
     </View>
@@ -123,8 +125,8 @@ function RecentTopicCard({ topic }) {
     <View accessible accessibilityLabel={`${topic}, ${activity.recency}`} style={styles.recentCard}>
       <TopicArtwork variant={activity.artwork} />
       <View style={styles.recentCopy}>
-        <Text numberOfLines={1} style={styles.recentTopicName}>{topic}</Text>
-        <Text style={styles.recentRecency}>{activity.recency}</Text>
+        <AppText numberOfLines={1} style={styles.recentTopicName}>{topic}</AppText>
+        <AppText style={styles.recentRecency}>{activity.recency}</AppText>
       </View>
     </View>
   );
@@ -134,7 +136,7 @@ function TopicsHeader() {
   return (
     <View>
       <BrandHeader />
-      <Text accessibilityRole="header" style={styles.sectionTitle}>Your Topics</Text>
+      <AppText accessibilityRole="header" fontRole="display" style={styles.sectionTitle}>Your Topics</AppText>
     </View>
   );
 }
@@ -145,9 +147,9 @@ function RecentTopics({ selectedTopics }) {
   return (
     <View style={styles.recentSection}>
       <View style={styles.recentHeadingRow}>
-        <Text accessibilityRole="header" style={styles.recentTitle}>Recently active topics</Text>
+        <AppText accessibilityRole="header" style={styles.recentTitle}>Recently active topics</AppText>
         <View accessible accessibilityLabel="See all recently active topics" style={styles.seeAll}>
-          <Text style={styles.seeAllText}>See all</Text>
+          <AppText style={styles.seeAllText}>See all</AppText>
           <ChevronRight color={colors.primary} size={18} strokeWidth={2.4} />
         </View>
       </View>
@@ -161,8 +163,8 @@ function RecentTopics({ selectedTopics }) {
             <Leaf color={colors.primary} size={21} strokeWidth={2} />
           </View>
           <View style={styles.recentEmptyCopy}>
-            <Text style={styles.recentEmptyTitle}>Your recent topics will appear here</Text>
-            <Text style={styles.recentEmptyDescription}>Save an idea to start your activity.</Text>
+            <AppText style={styles.recentEmptyTitle}>Your recent topics will appear here</AppText>
+            <AppText style={styles.recentEmptyDescription}>Save an idea to start your activity.</AppText>
           </View>
         </View>
       )}
@@ -173,10 +175,10 @@ function RecentTopics({ selectedTopics }) {
 function EmptyTopics() {
   return (
     <View style={styles.emptyState}>
-      <Text accessibilityRole="header" style={styles.emptyTitle}>Your topics will appear here.</Text>
-      <Text style={styles.emptyDescription}>
+      <AppText accessibilityRole="header" style={styles.emptyTitle}>Your topics will appear here.</AppText>
+      <AppText style={styles.emptyDescription}>
         Choose your interests during onboarding to start organizing what you save.
-      </Text>
+      </AppText>
     </View>
   );
 }
@@ -202,34 +204,34 @@ export default function MyTopicsScreen({ selectedTopics = [] }) {
 const styles = StyleSheet.create({
   content: { flexGrow: 1, paddingBottom: 28, paddingHorizontal: 20, paddingTop: 24 },
   brandHeader: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 54 },
-  wordmark: { color: '#111522', fontSize: 34, fontWeight: '800', letterSpacing: -1.3 },
+  wordmark: { color: '#111522', fontSize: 34, fontWeight: fontWeights.extraBold, letterSpacing: -1.3 },
   wordmarkAccent: { color: colors.primary },
   tagline: { color: '#8A91A1', fontSize: 16, marginTop: 1 },
   searchButton: { alignItems: 'center', backgroundColor: '#F7F7F8', borderRadius: 26, height: 52, justifyContent: 'center', width: 52 },
-  sectionTitle: { color: '#111522', fontSize: 24, fontWeight: '800', letterSpacing: -0.6, marginBottom: 16 },
+  sectionTitle: { color: '#111522', fontSize: 24, fontWeight: fontWeights.extraBold, letterSpacing: -0.6, marginBottom: 16 },
   topicRow: { gap: 12 },
   topicCard: { borderColor: '#EAECF0', borderRadius: 14, borderWidth: 1, flex: 1, height: 114, justifyContent: 'space-between', marginBottom: 12, maxWidth: '50%', padding: 17 },
   topicCardFeatured: { backgroundColor: '#F3F0FF', borderColor: '#E2DBFF' },
   topicChevron: { position: 'absolute', right: 13, top: 45 },
   topicCardBody: { bottom: 15, left: 17, position: 'absolute', right: 30 },
-  topicName: { color: '#111522', fontSize: 15, fontWeight: '700', letterSpacing: -0.25 },
+  topicName: { color: '#111522', fontSize: 15, fontWeight: fontWeights.bold, letterSpacing: -0.25 },
   topicCount: { color: '#7D8595', fontSize: 13, marginTop: 3 },
   recentSection: { borderTopColor: '#DFE2E7', borderTopWidth: 1, marginTop: 10, paddingTop: 20 },
   recentHeadingRow: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 14 },
-  recentTitle: { color: '#111522', fontSize: 17, fontWeight: '800', letterSpacing: -0.25 },
+  recentTitle: { color: '#111522', fontSize: 17, fontWeight: fontWeights.extraBold, letterSpacing: -0.25 },
   seeAll: { alignItems: 'center', flexDirection: 'row', gap: 2 },
-  seeAllText: { color: colors.primary, fontSize: 14, fontWeight: '600' },
+  seeAllText: { color: colors.primary, fontSize: 14, fontWeight: fontWeights.semibold },
   recentCards: { flexDirection: 'row', gap: 12 },
   recentCard: { alignItems: 'center', borderColor: '#EAECF0', borderRadius: 14, borderWidth: 1, flex: 1, flexDirection: 'row', minWidth: 0, padding: 11 },
   recentCopy: { flex: 1, marginLeft: 12, minWidth: 0 },
-  recentTopicName: { color: '#111522', fontSize: 15, fontWeight: '700' },
+  recentTopicName: { color: '#111522', fontSize: 15, fontWeight: fontWeights.bold },
   recentRecency: { color: '#7D8595', fontSize: 12, marginTop: 5 },
   recentEmpty: { alignItems: 'center', borderColor: '#EAECF0', borderRadius: 14, borderWidth: 1, flexDirection: 'row', padding: 14 },
   recentEmptyIcon: { alignItems: 'center', backgroundColor: colors.primarySoft, borderRadius: 10, height: 44, justifyContent: 'center', width: 44 },
   recentEmptyCopy: { flex: 1, marginLeft: 12 },
-  recentEmptyTitle: { color: colors.text, fontSize: 14, fontWeight: '700' },
+  recentEmptyTitle: { color: colors.text, fontSize: 14, fontWeight: fontWeights.bold },
   recentEmptyDescription: { color: colors.muted, fontSize: 12, marginTop: 3 },
   emptyState: { alignItems: 'center', backgroundColor: '#F7F7F8', borderRadius: 16, marginTop: 8, paddingHorizontal: 24, paddingVertical: 28 },
-  emptyTitle: { color: colors.text, fontSize: 17, fontWeight: '700', textAlign: 'center' },
+  emptyTitle: { color: colors.text, fontSize: 17, fontWeight: fontWeights.bold, textAlign: 'center' },
   emptyDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, marginTop: 7, textAlign: 'center' },
 });

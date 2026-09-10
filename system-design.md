@@ -58,9 +58,13 @@ Guidelines:
 
 ## Typography
 
-**Inter**
+Use the platform system sans-serif throughout the application:
 
-Use one primary typeface throughout the application.
+- iOS: the native Apple system font, which renders as SF Pro and automatically applies its size-appropriate optical treatment.
+- Android: the native sans-serif fallback (normally Roboto).
+- Web: the system UI stack, preferring the host operating system's interface font.
+
+Do not bundle Apple font files or describe Android/web output as SF Pro when that font is unavailable. Use the shared `AppText` component and the tokens in `app/src/theme/typography.js`; avoid screen-local `fontFamily` declarations.
 
 ### Type Scale
 

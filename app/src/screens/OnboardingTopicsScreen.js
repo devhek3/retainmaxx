@@ -4,10 +4,10 @@ import {
   FlatList,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
+import AppText from '../components/AppText';
 import {
   MINIMUM_TOPIC_SELECTION,
   TOPICS,
@@ -15,6 +15,7 @@ import {
 } from '../onboarding/topicCatalog.cjs';
 import Wordmark from '../components/Wordmark';
 import { colors } from '../theme/colors';
+import { fontWeights } from '../theme/typography';
 
 export default function OnboardingTopicsScreen({ onComplete, savePreferences }) {
   const [selectedTopics, setSelectedTopics] = useState([]);
@@ -71,10 +72,10 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
           pressed && !isSaving && styles.topicPressed,
         ]}
       >
-        <Text style={[styles.topicText, isSelected && styles.topicTextSelected]}>{topic}</Text>
-        <Text accessibilityElementsHidden style={[styles.checkmark, isSelected && styles.checkmarkSelected]}>
+        <AppText style={[styles.topicText, isSelected && styles.topicTextSelected]}>{topic}</AppText>
+        <AppText accessibilityElementsHidden style={[styles.checkmark, isSelected && styles.checkmarkSelected]}>
           {isSelected ? '✓' : '+'}
-        </Text>
+        </AppText>
       </Pressable>
     );
   }
@@ -89,20 +90,20 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
         ListHeaderComponent={(
           <View style={styles.header}>
             <Wordmark style={styles.wordmark} />
-            <Text style={styles.eyebrow}>WELCOME</Text>
-            <Text style={styles.title}>What do you want to remember?</Text>
-            <Text style={styles.description}>
+            <AppText style={styles.eyebrow}>WELCOME</AppText>
+            <AppText fontRole="display" style={styles.title}>What do you want to remember?</AppText>
+            <AppText style={styles.description}>
               Pick at least {MINIMUM_TOPIC_SELECTION} topics. We’ll use them to organize the useful things you save.
-            </Text>
+            </AppText>
             <View accessibilityLiveRegion="polite" style={[styles.selectionStatus, isComplete && styles.selectionStatusComplete]}>
-              <Text style={[styles.selectionStatusText, isComplete && styles.selectionStatusTextComplete]}>
+              <AppText style={[styles.selectionStatusText, isComplete && styles.selectionStatusTextComplete]}>
                 {selectedCount} of {MINIMUM_TOPIC_SELECTION} selected
-              </Text>
-              <Text style={[styles.selectionStatusHelper, isComplete && styles.selectionStatusTextComplete]}>
+              </AppText>
+              <AppText style={[styles.selectionStatusHelper, isComplete && styles.selectionStatusTextComplete]}>
                 {isComplete ? 'You’re ready to continue.' : `${MINIMUM_TOPIC_SELECTION - selectedCount} more to go`}
-              </Text>
+              </AppText>
             </View>
-            <Text style={styles.sectionLabel}>CHOOSE YOUR INTERESTS</Text>
+            <AppText style={styles.sectionLabel}>CHOOSE YOUR INTERESTS</AppText>
           </View>
         )}
         renderItem={renderTopic}
@@ -110,9 +111,9 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
       />
       <View style={styles.footer}>
         {validationMessage ? (
-          <Text accessibilityLiveRegion="assertive" accessibilityRole="alert" style={styles.validationMessage}>
+          <AppText accessibilityLiveRegion="assertive" accessibilityRole="alert" style={styles.validationMessage}>
             {validationMessage}
-          </Text>
+          </AppText>
         ) : null}
         <Pressable
           accessibilityHint={isComplete ? 'Saves your topics and opens the app' : `Select ${MINIMUM_TOPIC_SELECTION - selectedCount} more topics first`}
@@ -125,7 +126,7 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
             pressed && !isSaving && styles.continueButtonPressed,
           ]}
         >
-          {isSaving ? <ActivityIndicator color={colors.surface} /> : <Text style={styles.continueLabel}>Continue</Text>}
+          {isSaving ? <ActivityIndicator color={colors.surface} /> : <AppText style={styles.continueLabel}>Continue</AppText>}
         </Pressable>
       </View>
     </View>
@@ -137,26 +138,26 @@ const styles = StyleSheet.create({
   listContent: { paddingHorizontal: 20, paddingBottom: 24 },
   header: { paddingTop: 24, paddingBottom: 20 },
   wordmark: { marginBottom: 26 },
-  eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '700', letterSpacing: 1.1, marginBottom: 12 },
-  title: { color: colors.text, fontSize: 32, fontWeight: '700', letterSpacing: -0.8, lineHeight: 38 },
+  eyebrow: { color: colors.primary, fontSize: 12, fontWeight: fontWeights.bold, letterSpacing: 1.1, marginBottom: 12 },
+  title: { color: colors.text, fontSize: 32, fontWeight: fontWeights.bold, letterSpacing: -0.8, lineHeight: 38 },
   description: { color: colors.muted, fontSize: 16, lineHeight: 23, marginTop: 12 },
   selectionStatus: { alignSelf: 'flex-start', backgroundColor: colors.backgroundSecondary, borderRadius: 12, marginTop: 24, paddingHorizontal: 12, paddingVertical: 10 },
   selectionStatusComplete: { backgroundColor: colors.primarySoft },
-  selectionStatusText: { color: colors.text, fontSize: 14, fontWeight: '700' },
+  selectionStatusText: { color: colors.text, fontSize: 14, fontWeight: fontWeights.bold },
   selectionStatusHelper: { color: colors.muted, fontSize: 13, marginTop: 2 },
   selectionStatusTextComplete: { color: colors.primaryDark },
-  sectionLabel: { color: colors.muted, fontSize: 12, fontWeight: '700', letterSpacing: 1, marginTop: 28 },
+  sectionLabel: { color: colors.muted, fontSize: 12, fontWeight: fontWeights.bold, letterSpacing: 1, marginTop: 28 },
   topic: { alignItems: 'center', backgroundColor: colors.surface, borderColor: colors.border, borderRadius: 12, borderWidth: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, minHeight: 52, paddingHorizontal: 14, paddingVertical: 10 },
   topicSelected: { backgroundColor: colors.primarySoft, borderColor: colors.primary },
   topicPressed: { backgroundColor: colors.backgroundSecondary },
-  topicText: { color: colors.text, flex: 1, fontSize: 16, fontWeight: '600', paddingRight: 12 },
+  topicText: { color: colors.text, flex: 1, fontSize: 16, fontWeight: fontWeights.semibold, paddingRight: 12 },
   topicTextSelected: { color: colors.primaryDark },
-  checkmark: { color: colors.mutedLight, fontSize: 20, fontWeight: '600' },
-  checkmarkSelected: { color: colors.primary, fontWeight: '800' },
+  checkmark: { color: colors.mutedLight, fontSize: 20, fontWeight: fontWeights.semibold },
+  checkmarkSelected: { color: colors.primary, fontWeight: fontWeights.extraBold },
   footer: { backgroundColor: colors.surface, borderTopColor: colors.border, borderTopWidth: 1, paddingHorizontal: 20, paddingTop: 12, paddingBottom: 16 },
   validationMessage: { color: colors.error, fontSize: 14, lineHeight: 20, marginBottom: 10 },
   continueButton: { alignItems: 'center', backgroundColor: colors.primary, borderRadius: 12, justifyContent: 'center', minHeight: 52, paddingHorizontal: 20 },
   continueButtonIncomplete: { backgroundColor: colors.mutedLight },
   continueButtonPressed: { backgroundColor: colors.primaryDark },
-  continueLabel: { color: colors.surface, fontSize: 16, fontWeight: '700' },
+  continueLabel: { color: colors.surface, fontSize: 16, fontWeight: fontWeights.bold },
 });
