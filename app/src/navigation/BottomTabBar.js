@@ -1,7 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Clock3, Grid2X2, House } from 'lucide-react-native';
 
+import AppText from '../components/AppText';
 import { colors } from '../theme/colors';
+import { fontWeights } from '../theme/typography';
 
 const tabs = [
   { key: 'saveVideo', label: 'Library', Icon: House },
@@ -32,7 +34,7 @@ export default function BottomTabBar({ activeTab, onTabChange }) {
               size={24}
               strokeWidth={2.2}
             />
-            <Text style={[styles.label, isActive && styles.activeText]}>{label}</Text>
+            <AppText style={[styles.label, isActive && styles.activeText]}>{label}</AppText>
           </Pressable>
         );
       })}
@@ -53,6 +55,6 @@ const styles = StyleSheet.create({
   },
   tab: { alignItems: 'center', borderRadius: 12, flex: 1, gap: 4, justifyContent: 'center' },
   pressed: { backgroundColor: colors.primarySoft },
-  label: { color: '#737987', fontSize: 12, fontWeight: '500' },
+  label: { color: '#737987', fontSize: 12, fontWeight: fontWeights.medium },
   activeText: { color: colors.primary },
 });
