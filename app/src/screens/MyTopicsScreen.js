@@ -1,99 +1,171 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import {
+  BarChart3,
   BookOpen,
+  Brain,
   BriefcaseBusiness,
+  ChevronRight,
+  Coins,
   Dumbbell,
-  Landmark,
-  Plane,
+  Heart,
+  Laptop,
+  Leaf,
+  Search,
   Sparkles,
+  Utensils,
 } from 'lucide-react-native';
+import Svg, { Defs, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 
 import { colors } from '../theme/colors';
-import Wordmark from '../components/Wordmark';
-
-const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-const TOPIC_ACCENTS = [
-  { backgroundColor: '#E9E0FF', color: '#5728D9' },
-  { backgroundColor: '#DDF8E5', color: '#15803D' },
-  { backgroundColor: '#FFE7CB', color: '#C2410C' },
-  { backgroundColor: '#DDEBFF', color: '#2563EB' },
-  { backgroundColor: '#FFF0C7', color: '#A16207' },
-];
 
 const TOPIC_ICONS = {
   'AI & Machine Learning': Sparkles,
   'Career Growth': BriefcaseBusiness,
+  Entrepreneurship: BriefcaseBusiness,
   Fitness: Dumbbell,
-  Investing: Landmark,
-  'Personal Finance': Landmark,
-  Travel: Plane,
+  Investing: Coins,
+  'Mental Health': Heart,
+  Mindset: Brain,
+  Nutrition: Utensils,
+  'Personal Finance': Coins,
+  Productivity: BarChart3,
+  Technology: Laptop,
 };
 
-function TopicRow({ topic, index }) {
-  const accent = TOPIC_ACCENTS[index % TOPIC_ACCENTS.length];
+const TOPIC_ACTIVITY = {
+  Fitness: { count: 12 },
+  Technology: { count: 8 },
+  Mindset: { count: 14, countLabel: 'saved', recency: 'Viewed 2h ago', artwork: 'mountains' },
+  Psychology: { count: 14, countLabel: 'saved', recency: 'Viewed 2h ago', artwork: 'mountains' },
+  Nutrition: { count: 10, recency: 'Viewed 1d ago', artwork: 'leaves' },
+  Investing: { count: 9 },
+  'Personal Finance': { count: 9 },
+  Productivity: { count: 11 },
+  'Mental Health': { count: 8 },
+  Entrepreneurship: { count: 7 },
+  'Career Growth': { count: 7 },
+};
+
+function BrandHeader() {
+  return (
+    <View style={styles.brandHeader}>
+      <View>
+        <Text accessibilityRole="header" style={styles.wordmark}>
+          Retain<Text style={styles.wordmarkAccent}>Maxx</Text>
+        </Text>
+        <Text style={styles.tagline}>Browse by topic.</Text>
+      </View>
+      <View accessible accessibilityLabel="Search" style={styles.searchButton}>
+        <Search color="#111522" size={25} strokeWidth={2.1} />
+      </View>
+    </View>
+  );
+}
+
+function TopicCard({ topic, index }) {
   const TopicIcon = TOPIC_ICONS[topic] ?? BookOpen;
+  const activity = TOPIC_ACTIVITY[topic] ?? { count: 0 };
+  const countLabel = activity.countLabel ?? 'items';
+  const isFeatured = index === 0;
 
   return (
     <View
       accessible
-      accessibilityLabel={`${topic}, 0 saved, nothing saved yet`}
-      style={styles.topicRow}
+      accessibilityLabel={`${topic}, ${activity.count} ${countLabel}`}
+      style={[styles.topicCard, isFeatured && styles.topicCardFeatured]}
     >
-      <View style={[styles.topicIcon, { backgroundColor: accent.backgroundColor }]}>
-        <TopicIcon color={accent.color} size={20} strokeWidth={2.25} />
+      <TopicIcon
+        accessible={false}
+        color={isFeatured ? colors.primary : '#4B5565'}
+        size={30}
+        strokeWidth={2}
+      />
+      <View style={styles.topicCardBody}>
+        <Text numberOfLines={2} style={styles.topicName}>{topic}</Text>
+        <Text style={styles.topicCount}>{activity.count} {countLabel}</Text>
       </View>
-      <View style={styles.topicDetails}>
-        <Text style={styles.topicName}>{topic}</Text>
-        <Text style={styles.topicRecency}>Nothing saved yet</Text>
-      </View>
-      <View style={styles.topicCount}>
-        <Text style={styles.topicCountLabel}>0 saved</Text>
+      <ChevronRight accessible={false} color="#374151" size={21} strokeWidth={2} style={styles.topicChevron} />
+    </View>
+  );
+}
+
+function TopicArtwork({ variant }) {
+  if (variant === 'leaves') {
+    return (
+      <Svg accessibilityLabel="Dark green leaves" height="58" viewBox="0 0 64 58" width="64">
+        <Rect fill="#10251B" height="58" rx="9" width="64" />
+        <Path d="M9 58C12 31 25 13 43 4C43 29 32 48 9 58Z" fill="#456D52" />
+        <Path d="M18 58C26 37 39 23 61 16C57 40 42 54 18 58Z" fill="#274A36" />
+        <Path d="M13 50L41 11M25 54L57 21M22 37L12 31M34 31L28 20M38 42L54 38" stroke="#91A795" strokeWidth="1" />
+      </Svg>
+    );
+  }
+
+  return (
+    <Svg accessibilityLabel="Mountain landscape" height="58" viewBox="0 0 64 58" width="64">
+      <Defs>
+        <LinearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+          <Stop offset="0" stopColor="#BFCAD1" />
+          <Stop offset="1" stopColor="#E7C9A6" />
+        </LinearGradient>
+      </Defs>
+      <Rect fill="url(#sky)" height="58" rx="9" width="64" />
+      <Path d="M0 47L17 28L29 40L42 19L64 47V58H0Z" fill="#334750" />
+      <Path d="M0 51L21 38L36 48L51 35L64 44V58H0Z" fill="#1F3038" />
+    </Svg>
+  );
+}
+
+function RecentTopicCard({ topic }) {
+  const activity = TOPIC_ACTIVITY[topic];
+
+  return (
+    <View accessible accessibilityLabel={`${topic}, ${activity.recency}`} style={styles.recentCard}>
+      <TopicArtwork variant={activity.artwork} />
+      <View style={styles.recentCopy}>
+        <Text numberOfLines={1} style={styles.recentTopicName}>{topic}</Text>
+        <Text style={styles.recentRecency}>{activity.recency}</Text>
       </View>
     </View>
   );
 }
 
-function WeeklyMomentum() {
+function TopicsHeader() {
   return (
-    <View accessible accessibilityLabel="This week, 0 ideas saved" style={styles.momentumCard}>
-      <Text accessibilityRole="header" style={styles.momentumTitle}>This week</Text>
-      <Text style={styles.momentumDescription}>
-        Your weekly rhythm will build here as you save ideas.
-      </Text>
-      <View accessibilityLabel="Ideas saved by weekday" style={styles.week}>
-        {WEEK_DAYS.map((day) => (
-          <View key={day} style={styles.day}>
-            <Text style={styles.dayLabel}>{day}</Text>
-            <View
-              accessibilityRole="progressbar"
-              accessibilityValue={{ min: 0, max: 1, now: 0 }}
-              style={styles.track}
-            >
-              <View style={styles.trackFill} />
-            </View>
-            <Text style={styles.dayValue}>0</Text>
+    <View>
+      <BrandHeader />
+      <Text accessibilityRole="header" style={styles.sectionTitle}>Your Topics</Text>
+    </View>
+  );
+}
+
+function RecentTopics({ selectedTopics }) {
+  const recentTopics = selectedTopics.filter((topic) => TOPIC_ACTIVITY[topic]?.recency).slice(0, 2);
+
+  return (
+    <View style={styles.recentSection}>
+      <View style={styles.recentHeadingRow}>
+        <Text accessibilityRole="header" style={styles.recentTitle}>Recently active topics</Text>
+        <View accessible accessibilityLabel="See all recently active topics" style={styles.seeAll}>
+          <Text style={styles.seeAllText}>See all</Text>
+          <ChevronRight color={colors.primary} size={18} strokeWidth={2.4} />
+        </View>
+      </View>
+      {recentTopics.length > 0 ? (
+        <View style={styles.recentCards}>
+          {recentTopics.map((topic) => <RecentTopicCard key={topic} topic={topic} />)}
+        </View>
+      ) : (
+        <View accessible accessibilityLabel="No recent topic activity" style={styles.recentEmpty}>
+          <View style={styles.recentEmptyIcon}>
+            <Leaf color={colors.primary} size={21} strokeWidth={2} />
           </View>
-        ))}
-      </View>
-    </View>
-  );
-}
-
-function TopicsHeader({ topicCount }) {
-  const topicLabel = `${topicCount} ${topicCount === 1 ? 'topic' : 'topics'}`;
-  const hasTopics = topicCount > 0;
-
-  return (
-    <View style={styles.header}>
-      <Wordmark style={styles.wordmark} />
-      <Text style={styles.eyebrow}>MY TOPICS</Text>
-
-      {hasTopics ? <WeeklyMomentum /> : null}
-
-      <View style={styles.sectionHeader}>
-        <Text accessibilityRole="header" style={styles.sectionTitle}>Recent activity</Text>
-        <Text style={styles.sectionSummary}>0 ideas across {topicLabel}</Text>
-      </View>
+          <View style={styles.recentEmptyCopy}>
+            <Text style={styles.recentEmptyTitle}>Your recent topics will appear here</Text>
+            <Text style={styles.recentEmptyDescription}>Save an idea to start your activity.</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -102,53 +174,62 @@ function EmptyTopics() {
   return (
     <View style={styles.emptyState}>
       <Text accessibilityRole="header" style={styles.emptyTitle}>Your topics will appear here.</Text>
-      <Text style={styles.emptyDescription}>Choose your interests during onboarding to start organizing what you save.</Text>
+      <Text style={styles.emptyDescription}>
+        Choose your interests during onboarding to start organizing what you save.
+      </Text>
     </View>
   );
 }
 
 export default function MyTopicsScreen({ selectedTopics = [] }) {
-  const hasTopics = selectedTopics.length > 0;
-
   return (
     <FlatList
       accessibilityLabel="My topics"
+      columnWrapperStyle={selectedTopics.length > 0 ? styles.topicRow : undefined}
       contentContainerStyle={styles.content}
       data={selectedTopics}
       keyExtractor={(topic) => topic}
       ListEmptyComponent={<EmptyTopics />}
-      ListHeaderComponent={<TopicsHeader topicCount={selectedTopics.length} />}
-      renderItem={({ item, index }) => <TopicRow index={index} topic={item} />}
+      ListFooterComponent={selectedTopics.length > 0 ? <RecentTopics selectedTopics={selectedTopics} /> : null}
+      ListHeaderComponent={<TopicsHeader />}
+      numColumns={2}
+      renderItem={({ item, index }) => <TopicCard index={index} topic={item} />}
       showsVerticalScrollIndicator={false}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  content: { flexGrow: 1, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 32 },
-  header: { paddingBottom: 8 },
-  wordmark: { marginBottom: 26 },
-  eyebrow: { color: colors.primary, fontSize: 12, fontWeight: '800', letterSpacing: 1.2, marginBottom: 10 },
-  sectionHeader: { alignItems: 'baseline', flexDirection: 'row', justifyContent: 'space-between', marginTop: 28, marginBottom: 12 },
-  sectionTitle: { color: colors.text, flex: 1, fontSize: 18, fontWeight: '700', letterSpacing: -0.25 },
-  sectionSummary: { color: colors.muted, fontSize: 12, marginLeft: 12, textAlign: 'right' },
-  topicRow: { alignItems: 'center', borderBottomColor: colors.border, borderBottomWidth: 1, flexDirection: 'row', minHeight: 82, paddingVertical: 12 },
-  topicIcon: { alignItems: 'center', borderRadius: 11, height: 42, justifyContent: 'center', marginRight: 12, width: 42 },
-  topicDetails: { flex: 1, minWidth: 0, paddingRight: 8 },
-  topicName: { color: colors.text, fontSize: 15, fontWeight: '800', letterSpacing: -0.15 },
-  topicRecency: { color: colors.muted, fontSize: 12, lineHeight: 17, marginTop: 2 },
-  topicCount: { alignItems: 'flex-end', paddingLeft: 8 },
-  topicCountLabel: { color: colors.text, fontSize: 12, fontWeight: '700' },
-  momentumCard: { backgroundColor: colors.backgroundSecondary, borderRadius: 16, padding: 18 },
-  momentumTitle: { color: colors.text, fontSize: 16, fontWeight: '700', letterSpacing: -0.2 },
-  momentumDescription: { color: colors.muted, fontSize: 13, lineHeight: 19, marginTop: 5 },
-  week: { marginTop: 17, rowGap: 10 },
-  day: { alignItems: 'center', flexDirection: 'row' },
-  dayLabel: { color: colors.muted, fontSize: 11, width: 28 },
-  track: { backgroundColor: colors.border, borderRadius: 99, flex: 1, height: 7, overflow: 'hidden' },
-  trackFill: { backgroundColor: colors.primary, borderRadius: 99, height: '100%', width: '0%' },
-  dayValue: { color: colors.text, fontSize: 12, fontWeight: '700', marginLeft: 10, textAlign: 'right', width: 12 },
-  emptyState: { alignItems: 'center', backgroundColor: colors.backgroundSecondary, borderRadius: 16, marginTop: 8, paddingHorizontal: 24, paddingVertical: 28 },
+  content: { flexGrow: 1, paddingBottom: 28, paddingHorizontal: 20, paddingTop: 24 },
+  brandHeader: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 54 },
+  wordmark: { color: '#111522', fontSize: 34, fontWeight: '800', letterSpacing: -1.3 },
+  wordmarkAccent: { color: colors.primary },
+  tagline: { color: '#8A91A1', fontSize: 16, marginTop: 1 },
+  searchButton: { alignItems: 'center', backgroundColor: '#F7F7F8', borderRadius: 26, height: 52, justifyContent: 'center', width: 52 },
+  sectionTitle: { color: '#111522', fontSize: 24, fontWeight: '800', letterSpacing: -0.6, marginBottom: 16 },
+  topicRow: { gap: 12 },
+  topicCard: { borderColor: '#EAECF0', borderRadius: 14, borderWidth: 1, flex: 1, height: 114, justifyContent: 'space-between', marginBottom: 12, maxWidth: '50%', padding: 17 },
+  topicCardFeatured: { backgroundColor: '#F3F0FF', borderColor: '#E2DBFF' },
+  topicChevron: { position: 'absolute', right: 13, top: 45 },
+  topicCardBody: { bottom: 15, left: 17, position: 'absolute', right: 30 },
+  topicName: { color: '#111522', fontSize: 15, fontWeight: '700', letterSpacing: -0.25 },
+  topicCount: { color: '#7D8595', fontSize: 13, marginTop: 3 },
+  recentSection: { borderTopColor: '#DFE2E7', borderTopWidth: 1, marginTop: 10, paddingTop: 20 },
+  recentHeadingRow: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 14 },
+  recentTitle: { color: '#111522', fontSize: 17, fontWeight: '800', letterSpacing: -0.25 },
+  seeAll: { alignItems: 'center', flexDirection: 'row', gap: 2 },
+  seeAllText: { color: colors.primary, fontSize: 14, fontWeight: '600' },
+  recentCards: { flexDirection: 'row', gap: 12 },
+  recentCard: { alignItems: 'center', borderColor: '#EAECF0', borderRadius: 14, borderWidth: 1, flex: 1, flexDirection: 'row', minWidth: 0, padding: 11 },
+  recentCopy: { flex: 1, marginLeft: 12, minWidth: 0 },
+  recentTopicName: { color: '#111522', fontSize: 15, fontWeight: '700' },
+  recentRecency: { color: '#7D8595', fontSize: 12, marginTop: 5 },
+  recentEmpty: { alignItems: 'center', borderColor: '#EAECF0', borderRadius: 14, borderWidth: 1, flexDirection: 'row', padding: 14 },
+  recentEmptyIcon: { alignItems: 'center', backgroundColor: colors.primarySoft, borderRadius: 10, height: 44, justifyContent: 'center', width: 44 },
+  recentEmptyCopy: { flex: 1, marginLeft: 12 },
+  recentEmptyTitle: { color: colors.text, fontSize: 14, fontWeight: '700' },
+  recentEmptyDescription: { color: colors.muted, fontSize: 12, marginTop: 3 },
+  emptyState: { alignItems: 'center', backgroundColor: '#F7F7F8', borderRadius: 16, marginTop: 8, paddingHorizontal: 24, paddingVertical: 28 },
   emptyTitle: { color: colors.text, fontSize: 17, fontWeight: '700', textAlign: 'center' },
   emptyDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, marginTop: 7, textAlign: 'center' },
 });

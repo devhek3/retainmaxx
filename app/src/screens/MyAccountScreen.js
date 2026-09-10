@@ -7,9 +7,9 @@ export default function MyAccountScreen() {
   return (
     <View style={styles.container}>
       <Wordmark style={styles.wordmark} />
-      <Text style={styles.eyebrow}>MY ACCOUNT</Text>
-      <Text style={styles.title}>Your profile</Text>
-      <Text style={styles.description}>Account preferences and saved-video settings will live here.</Text>
+      <Text style={styles.eyebrow}>REVIEW</Text>
+      <Text style={styles.title}>Review your ideas</Text>
+      <Text style={styles.description}>Your saved ideas will be ready to revisit here.</Text>
       <View style={styles.avatar} accessibilityLabel="Profile placeholder">
         <Text style={styles.avatarText}>You</Text>
       </View>
