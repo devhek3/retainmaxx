@@ -4,4 +4,5 @@
 /app/.env
 /app/.env.*
 !/app/.env.example
+/supabase/.cache/
 .DS_Store

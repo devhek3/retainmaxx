@@ -1,0 +1,227 @@
+[
+  {
+    "name": "AI & Machine Learning",
+    "definition": "Artificial intelligence concepts, machine-learning models, practical AI tools, and responsible use of automated systems.",
+    "examples": ["How transformer models learn patterns from text", "Choosing an AI assistant for a real workflow", "Understanding bias and evaluation in machine learning"]
+  },
+  {
+    "name": "Personal Finance",
+    "definition": "Managing personal money through budgeting, saving, credit, debt, taxes, and everyday financial decisions.",
+    "examples": ["Building a monthly budget that is easy to maintain", "Paying down high-interest credit-card debt", "Creating an emergency fund for unexpected expenses"]
+  },
+  {
+    "name": "Investing",
+    "definition": "Growing capital through stocks, bonds, funds, property, and other assets while understanding risk and return.",
+    "examples": ["Comparing index funds with individual stocks", "How diversification reduces portfolio risk", "Evaluating an investment over a long time horizon"]
+  },
+  {
+    "name": "Career Growth",
+    "definition": "Developing professional skills, finding opportunities, advancing at work, and making intentional career decisions.",
+    "examples": ["Preparing evidence for a promotion conversation", "Writing a resume around measurable outcomes", "Choosing skills that open a new career path"]
+  },
+  {
+    "name": "Entrepreneurship",
+    "definition": "Starting and operating a business, validating opportunities, building products, and managing early-stage growth.",
+    "examples": ["Testing a business idea before building it", "Finding the first paying customers", "Managing cash flow in a small startup"]
+  },
+  {
+    "name": "Marketing & Branding",
+    "definition": "Understanding audiences, positioning offers, communicating brand identity, and attracting attention across channels.",
+    "examples": ["Writing a clear positioning statement", "Planning a focused social-media campaign", "Building a memorable and consistent brand voice"]
+  },
+  {
+    "name": "Sales & Negotiation",
+    "definition": "Discovering customer needs, presenting value, handling objections, closing agreements, and negotiating fair terms.",
+    "examples": ["Asking discovery questions on a sales call", "Responding to a price objection", "Preparing alternatives before a negotiation"]
+  },
+  {
+    "name": "Leadership & Management",
+    "definition": "Leading people and teams through direction, delegation, feedback, decision-making, and healthy organizational practices.",
+    "examples": ["Giving specific feedback that changes behavior", "Delegating outcomes without micromanaging", "Running a useful one-on-one meeting"]
+  },
+  {
+    "name": "Productivity",
+    "definition": "Organizing time, attention, habits, and systems to complete meaningful work with less friction.",
+    "examples": ["Planning a realistic weekly workload", "Reducing distractions during focused work", "Using a simple system to capture and prioritize tasks"]
+  },
+  {
+    "name": "Communication",
+    "definition": "Expressing ideas clearly, listening well, presenting information, and navigating interpersonal conversations.",
+    "examples": ["Explaining a complex idea in plain language", "Listening actively during a disagreement", "Structuring a concise public presentation"]
+  },
+  {
+    "name": "Psychology",
+    "definition": "Human thought, emotion, motivation, behavior, cognitive biases, and evidence-based psychological concepts.",
+    "examples": ["How confirmation bias changes decisions", "Why small habits influence motivation", "Understanding the link between emotion and memory"]
+  },
+  {
+    "name": "Mental Health",
+    "definition": "Emotional wellbeing, stress, anxiety, depression, coping skills, therapy, and seeking appropriate support.",
+    "examples": ["Recognizing signs of chronic stress", "Grounding techniques for anxious moments", "How to support someone seeking therapy"]
+  },
+  {
+    "name": "Relationships",
+    "definition": "Building and maintaining healthy romantic, family, friendship, and social connections.",
+    "examples": ["Setting a respectful personal boundary", "Repairing trust after a conflict", "Making time for important friendships"]
+  },
+  {
+    "name": "Parenting",
+    "definition": "Caring for children through development, learning, safety, routines, connection, and family life.",
+    "examples": ["Creating a calm bedtime routine for children", "Responding to a toddler's strong emotions", "Supporting a teenager's growing independence"]
+  },
+  {
+    "name": "Nutrition",
+    "definition": "Food, nutrients, eating patterns, meal choices, and evidence-based approaches to health and energy.",
+    "examples": ["Building a balanced meal with protein and fiber", "Reading a nutrition label accurately", "Planning filling snacks for a busy day"]
+  },
+  {
+    "name": "Fitness",
+    "definition": "Exercise, strength, mobility, conditioning, training plans, and sustainable physical performance.",
+    "examples": ["Progressing safely in a strength program", "Improving cardiovascular endurance with intervals", "Using mobility work to support regular training"]
+  },
+  {
+    "name": "Sleep & Recovery",
+    "definition": "Sleep quality, rest, recovery practices, fatigue management, and the habits that support restoration.",
+    "examples": ["Creating a consistent evening wind-down routine", "How daylight affects the sleep-wake cycle", "Balancing hard training with recovery days"]
+  },
+  {
+    "name": "Cooking",
+    "definition": "Preparing food through recipes, techniques, ingredients, kitchen skills, and practical meal planning.",
+    "examples": ["Searing vegetables without making them soggy", "Preparing several simple meals in advance", "Balancing salt, acid, fat, and heat in a dish"]
+  },
+  {
+    "name": "Travel",
+    "definition": "Planning trips, understanding destinations, navigating transportation, and travelling safely and respectfully.",
+    "examples": ["Packing lightly for a week-long trip", "Planning a realistic city itinerary", "Avoiding common transport scams while abroad"]
+  },
+  {
+    "name": "Language Learning",
+    "definition": "Learning and practicing languages through vocabulary, grammar, pronunciation, listening, and conversation.",
+    "examples": ["Remembering useful vocabulary with spaced practice", "Training listening comprehension with short clips", "Building confidence in everyday conversation"]
+  },
+  {
+    "name": "History",
+    "definition": "Past events, people, societies, movements, and the evidence used to understand historical change.",
+    "examples": ["Why trade routes shaped ancient cities", "Causes of a major political revolution", "Using primary sources to evaluate a historical claim"]
+  },
+  {
+    "name": "Science",
+    "definition": "Scientific discoveries, methods, concepts, and evidence across physics, chemistry, biology, and related fields.",
+    "examples": ["How a controlled experiment tests a hypothesis", "Why antibiotics do not treat viruses", "Explaining energy conservation with a simple example"]
+  },
+  {
+    "name": "Space",
+    "definition": "Astronomy, cosmology, spacecraft, exploration, planets, stars, and the physical universe beyond Earth.",
+    "examples": ["How a rocket reaches orbit", "What scientists learn from exoplanet atmospheres", "Why stars have different colors"]
+  },
+  {
+    "name": "Environment & Sustainability",
+    "definition": "Climate, ecosystems, conservation, pollution, resource use, and practical paths toward environmental sustainability.",
+    "examples": ["How renewable power reduces carbon emissions", "Protecting biodiversity in urban areas", "Comparing the life-cycle impact of everyday products"]
+  },
+  {
+    "name": "Technology",
+    "definition": "Digital products, devices, platforms, emerging technologies, and their practical effects on work and daily life.",
+    "examples": ["How a new smartphone feature works", "Choosing useful software for a small team", "Understanding the tradeoffs of cloud computing"]
+  },
+  {
+    "name": "Cybersecurity",
+    "definition": "Protecting accounts, devices, networks, software, and data from misuse, fraud, and technical attacks.",
+    "examples": ["Recognizing a convincing phishing message", "Using a password manager and multi-factor authentication", "How software vulnerabilities become security incidents"]
+  },
+  {
+    "name": "Software Development",
+    "definition": "Designing, writing, testing, deploying, and maintaining software systems and code.",
+    "examples": ["Writing a focused automated test", "Tracing the cause of a production bug", "Designing a small and stable application interface"]
+  },
+  {
+    "name": "Design & Creativity",
+    "definition": "Visual and product design, creative process, ideation, composition, and making useful original work.",
+    "examples": ["Using visual hierarchy to clarify a mobile screen", "Generating several ideas before choosing a direction", "Improving a design through critique and iteration"]
+  },
+  {
+    "name": "Photography & Video",
+    "definition": "Capturing and editing photographs and video through composition, lighting, sound, cameras, and storytelling.",
+    "examples": ["Using window light for a natural portrait", "Composing a stronger short-form video shot", "Editing clips to create a clear visual story"]
+  },
+  {
+    "name": "Music",
+    "definition": "Making, performing, listening to, and understanding music, instruments, production, and theory.",
+    "examples": ["How chord progressions create tension and release", "Practicing an instrument with focused repetition", "Balancing vocals and instruments in a mix"]
+  },
+  {
+    "name": "Books & Writing",
+    "definition": "Reading, literature, storytelling, research, and the craft of writing clearly and effectively.",
+    "examples": ["Developing a believable character arc", "Editing a paragraph for clarity and rhythm", "Taking useful notes while reading nonfiction"]
+  },
+  {
+    "name": "Fashion & Style",
+    "definition": "Clothing, personal style, garment choices, trends, fit, and the cultural expression of fashion.",
+    "examples": ["Building a versatile capsule wardrobe", "Choosing clothing proportions for a balanced outfit", "Understanding how a fashion trend developed"]
+  },
+  {
+    "name": "Home & Organization",
+    "definition": "Organizing, maintaining, decorating, and improving living spaces for practical daily use.",
+    "examples": ["Creating an entryway that prevents clutter", "Organizing a small kitchen by frequency of use", "Planning a simple weekly home reset"]
+  },
+  {
+    "name": "Gardening",
+    "definition": "Growing and caring for plants through soil management, watering, propagation, seasonal planning, and pest control.",
+    "examples": ["Choosing plants for a low-light room", "Knowing when and how deeply to water seedlings", "Improving garden soil with compost"]
+  },
+  {
+    "name": "DIY & Repair",
+    "definition": "Building, fixing, and maintaining household items through practical tools, materials, and safe techniques.",
+    "examples": ["Repairing a small hole in drywall", "Choosing the right drill bit for a material", "Diagnosing a leaking sink connection safely"]
+  },
+  {
+    "name": "Cars & Transportation",
+    "definition": "Cars, public transport, mobility, vehicle technology, maintenance, driving, and transportation systems.",
+    "examples": ["Checking tire pressure and tread wear", "Comparing electric and combustion vehicle ownership", "How a city's public transit network is planned"]
+  },
+  {
+    "name": "Sports",
+    "definition": "Athletic competition, teams, tactics, training, performance, rules, and sports culture.",
+    "examples": ["Breaking down a football team's defensive shape", "How athletes prepare for competition", "Understanding a rule that changed a match"]
+  },
+  {
+    "name": "Gaming",
+    "definition": "Video games, tabletop games, game design, strategy, communities, and interactive entertainment.",
+    "examples": ["Learning a strong opening strategy in a game", "How level design guides a player's attention", "Comparing cooperative and competitive game mechanics"]
+  },
+  {
+    "name": "News & Current Events",
+    "definition": "Timely public events, reporting, developing stories, and evaluating claims about current affairs.",
+    "examples": ["Separating verified facts from early reports", "Understanding the context behind a current headline", "Comparing coverage of the same developing event"]
+  },
+  {
+    "name": "Law & Civics",
+    "definition": "Legal principles, rights, government institutions, public policy, and civic participation.",
+    "examples": ["How a bill moves through a legislature", "Understanding a basic consumer legal right", "What local government is responsible for"]
+  },
+  {
+    "name": "Education & Study Skills",
+    "definition": "Learning strategies, teaching, memory, note-taking, examination preparation, and effective study habits.",
+    "examples": ["Using retrieval practice instead of rereading", "Planning revision across several subjects", "Taking notes that support later recall"]
+  },
+  {
+    "name": "Mathematics",
+    "definition": "Numbers, algebra, geometry, calculus, probability, statistics, and mathematical reasoning.",
+    "examples": ["Interpreting probability in an everyday decision", "Visualizing the meaning of a derivative", "Solving an equation by preserving equality"]
+  },
+  {
+    "name": "Art & Culture",
+    "definition": "Visual arts, performance, cultural traditions, museums, criticism, and the social meaning of creative works.",
+    "examples": ["Reading symbolism in a painting", "How a cultural tradition changes across generations", "Understanding the context of a major art movement"]
+  },
+  {
+    "name": "Spirituality & Mindfulness",
+    "definition": "Contemplative practice, meaning, awareness, meditation, spiritual traditions, and intentional presence.",
+    "examples": ["Practicing a short mindful breathing exercise", "Reflecting on personal values and meaning", "Understanding a contemplative tradition respectfully"]
+  },
+  {
+    "name": "Pets & Animals",
+    "definition": "Animal behavior, pet care, wildlife, training, health, habitats, and humane relationships with animals.",
+    "examples": ["Recognizing signs that a pet needs veterinary care", "Using positive reinforcement in dog training", "How a wild animal adapts to its habitat"]
+  }
+]

@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const {
   MINIMUM_TOPIC_SELECTION,
@@ -25,6 +27,21 @@ test('the catalogue contains exactly 45 distinct topics across the MVP domains',
   assert.equal(TOPICS.length, 45);
   assert.equal(new Set(TOPICS).size, 45);
   assert.deepEqual(TOPICS.slice(0, 5), ['AI & Machine Learning', 'Personal Finance', 'Investing', 'Career Growth', 'Entrepreneurship']);
+});
+
+test('the database topic contract preserves the app catalogue order', () => {
+  const databaseTopics = JSON.parse(fs.readFileSync(
+    path.resolve(__dirname, '../../supabase/seed/topics.json'),
+    'utf8',
+  ));
+
+  assert.deepEqual(databaseTopics.map(({ name }) => name), TOPICS);
+  assert.ok(databaseTopics.every(({ definition, examples }) => (
+    typeof definition === 'string'
+    && definition.trim().length > 0
+    && examples.length >= 3
+    && examples.length <= 5
+  )));
 });
 
 test('a selection must contain at least five catalogue topics', () => {
