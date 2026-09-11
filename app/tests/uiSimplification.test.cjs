@@ -24,6 +24,19 @@ test('topic cards retain two columns with expanded height and padding', () => {
   assert.match(topicsScreen, /topicCard: \{[^}]*height: 120[^}]*padding: 20/);
 });
 
+test('all topic card titles use one fixed shared font size', () => {
+  const onboardingTopicsScreen = read('src/screens/OnboardingTopicsScreen.js');
+  const topicsScreen = read('src/screens/MyTopicsScreen.js');
+  const typography = read('src/theme/typography.js');
+
+  assert.match(typography, /topicCardTitle:\s*Object\.freeze\(\{ fontSize: 16, fontWeight: fontWeights\.semibold \}\)/);
+  assert.match(onboardingTopicsScreen, /typography\.scale\.topicCardTitle/);
+  assert.match(topicsScreen, /numberOfLines=\{2\} style=\{\[typography\.scale\.topicCardTitle, styles\.topicName\]\}/);
+  assert.doesNotMatch(onboardingTopicsScreen, /topicText:\s*\{[^}]*fontSize/);
+  assert.doesNotMatch(topicsScreen, /topicName:\s*\{[^}]*fontSize/);
+  assert.doesNotMatch(topicsScreen, /adjustsFontSizeToFit|minimumFontScale/);
+});
+
 test('bottom navigation exposes only Library and Topics', () => {
   const bottomTabBar = read('src/navigation/BottomTabBar.js');
   const app = read('App.js');

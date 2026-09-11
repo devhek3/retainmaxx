@@ -15,7 +15,7 @@ import {
 } from '../onboarding/topicCatalog.cjs';
 import Wordmark from '../components/Wordmark';
 import { colors } from '../theme/colors';
-import { fontWeights } from '../theme/typography';
+import { fontWeights, typography } from '../theme/typography';
 
 export default function OnboardingTopicsScreen({ onComplete, savePreferences }) {
   const [selectedTopics, setSelectedTopics] = useState([]);
@@ -72,7 +72,7 @@ export default function OnboardingTopicsScreen({ onComplete, savePreferences }) 
           pressed && !isSaving && styles.topicPressed,
         ]}
       >
-        <AppText style={[styles.topicText, isSelected && styles.topicTextSelected]}>{topic}</AppText>
+        <AppText style={[typography.scale.topicCardTitle, styles.topicText, isSelected && styles.topicTextSelected]}>{topic}</AppText>
         <AppText accessibilityElementsHidden style={[styles.checkmark, isSelected && styles.checkmarkSelected]}>
           {isSelected ? '✓' : '+'}
         </AppText>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   topic: { alignItems: 'center', backgroundColor: colors.surface, borderColor: colors.border, borderRadius: 12, borderWidth: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, minHeight: 52, paddingHorizontal: 14, paddingVertical: 10 },
   topicSelected: { backgroundColor: colors.primarySoft, borderColor: colors.primary },
   topicPressed: { backgroundColor: colors.backgroundSecondary },
-  topicText: { color: colors.text, flex: 1, fontSize: 16, fontWeight: fontWeights.semibold, paddingRight: 12 },
+  topicText: { color: colors.text, flex: 1, paddingRight: 12 },
   topicTextSelected: { color: colors.primaryDark },
   checkmark: { color: colors.mutedLight, fontSize: 20, fontWeight: fontWeights.semibold },
   checkmarkSelected: { color: colors.primary, fontWeight: fontWeights.extraBold },
