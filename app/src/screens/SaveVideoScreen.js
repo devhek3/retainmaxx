@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { ChevronRight, Search } from 'lucide-react-native';
+import { ChevronRight } from 'lucide-react-native';
 
 import AppText from '../components/AppText';
 import SavedVideoRow from '../components/SavedVideoRow';
@@ -30,18 +30,9 @@ export default function SaveVideoScreen({ onSelectVideo, onViewAll }) {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.headerRow}>
-        <View>
-          <Wordmark />
-          <AppText style={styles.tagline}>Your knowledge library.</AppText>
-        </View>
-        <Pressable
-          accessibilityLabel="Search library"
-          accessibilityRole="button"
-          style={({ pressed }) => [styles.searchButton, pressed && styles.searchButtonPressed]}
-        >
-          <Search color={colors.text} size={25} strokeWidth={2.2} />
-        </Pressable>
+      <View style={styles.header}>
+        <Wordmark />
+        <AppText style={styles.tagline}>Your knowledge library.</AppText>
       </View>
 
       <ScrollView
@@ -101,10 +92,8 @@ export default function SaveVideoScreen({ onSelectVideo, onViewAll }) {
 
 const styles = StyleSheet.create({
   content: { flexGrow: 1, paddingBottom: 24, paddingHorizontal: 20, paddingTop: 30 },
-  headerRow: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' },
+  header: { alignItems: 'flex-start' },
   tagline: { color: '#8B91A0', fontSize: 15, lineHeight: 20, marginTop: 2 },
-  searchButton: { alignItems: 'center', backgroundColor: '#FAFAFB', borderRadius: 999, height: 50, justifyContent: 'center', width: 50 },
-  searchButtonPressed: { backgroundColor: colors.primarySoft },
   filterScroller: { flexGrow: 0, marginHorizontal: -1, marginTop: 23 },
   filters: { alignItems: 'center', gap: 10, paddingRight: 4, paddingVertical: 9 },
   filter: { alignItems: 'center', borderRadius: 999, justifyContent: 'center', minHeight: 40, minWidth: 56, paddingHorizontal: 13 },

@@ -5,7 +5,6 @@ import { StatusBar } from 'expo-status-bar';
 
 import BottomTabBar from './src/navigation/BottomTabBar';
 import AllSavesScreen from './src/screens/AllSavesScreen';
-import MyAccountScreen from './src/screens/MyAccountScreen';
 import MyTopicsScreen from './src/screens/MyTopicsScreen';
 import OnboardingTopicsScreen from './src/screens/OnboardingTopicsScreen';
 import ReelDetailScreen from './src/screens/ReelDetailScreen';
@@ -25,7 +24,6 @@ import { SAVED_VIDEOS } from './src/videoQueue/savedVideos';
 const screens = {
   saveVideo: SaveVideoScreen,
   topics: MyTopicsScreen,
-  account: MyAccountScreen,
 };
 
 export default function App() {
