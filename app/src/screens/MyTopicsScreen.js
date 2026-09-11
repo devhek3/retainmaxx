@@ -15,7 +15,7 @@ import {
 
 import AppText from '../components/AppText';
 import { colors } from '../theme/colors';
-import { fontWeights } from '../theme/typography';
+import { fontWeights, typography } from '../theme/typography';
 
 const TOPIC_ICONS = {
   'AI & Machine Learning': Sparkles,
@@ -76,7 +76,7 @@ function TopicCard({ topic, index }) {
       />
       <ChevronRight color="#525B6B" size={20} strokeWidth={1.9} style={styles.topicChevron} />
       <View style={styles.topicCopy}>
-        <AppText adjustsFontSizeToFit minimumFontScale={0.8} numberOfLines={1} style={styles.topicName}>{topic}</AppText>
+        <AppText numberOfLines={2} style={[typography.scale.topicCardTitle, styles.topicName]}>{topic}</AppText>
         <AppText style={styles.topicCount}>{activity.count} {countLabel}</AppText>
       </View>
     </View>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   topicCard: { borderColor: '#ECEEF2', borderRadius: 16, borderWidth: StyleSheet.hairlineWidth, flex: 1, height: 120, justifyContent: 'space-between', marginBottom: 16, maxWidth: '50%', padding: 20 },
   topicCardFeatured: { backgroundColor: '#F7F5FF', borderColor: '#E8E2FF' },
   topicChevron: { position: 'absolute', right: 18, top: 24 },
-  topicName: { color: '#111522', fontSize: 15, fontWeight: fontWeights.semibold, letterSpacing: -0.2, lineHeight: 19 },
+  topicName: { color: '#111522', letterSpacing: -0.2, lineHeight: 19 },
   topicCount: { color: '#7D8595', fontSize: 13, lineHeight: 18, marginTop: 1 },
   emptyState: { alignItems: 'center', backgroundColor: '#F7F7F8', borderRadius: 16, marginTop: 8, paddingHorizontal: 24, paddingVertical: 28 },
   emptyTitle: { color: colors.text, fontSize: 17, fontWeight: fontWeights.bold, textAlign: 'center' },

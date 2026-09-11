@@ -33,6 +33,7 @@ export const typography = Object.freeze({
     sectionTitle: Object.freeze({ fontSize: 18, fontWeight: fontWeights.semibold }),
     body: Object.freeze({ fontSize: 16, fontWeight: fontWeights.regular }),
     bodyEmphasis: Object.freeze({ fontSize: 16, fontWeight: fontWeights.semibold }),
+    topicCardTitle: Object.freeze({ fontSize: 16, fontWeight: fontWeights.semibold }),
     secondary: Object.freeze({ fontSize: 14, fontWeight: fontWeights.regular }),
     caption: Object.freeze({ fontSize: 12, fontWeight: fontWeights.regular }),
   }),
