@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Clock3, Grid2X2, House } from 'lucide-react-native';
+import { Grid2X2, House } from 'lucide-react-native';
 
 import AppText from '../components/AppText';
 import { colors } from '../theme/colors';
@@ -8,7 +8,6 @@ import { fontWeights } from '../theme/typography';
 const tabs = [
   { key: 'saveVideo', label: 'Library', Icon: House },
   { key: 'topics', label: 'Topics', Icon: Grid2X2 },
-  { key: 'account', label: 'Review', Icon: Clock3 },
 ];
 
 export default function BottomTabBar({ activeTab, onTabChange }) {
@@ -30,7 +29,7 @@ export default function BottomTabBar({ activeTab, onTabChange }) {
             <Icon
               accessible={false}
               color={iconColor}
-              fill={isActive && key !== 'account' ? iconColor : 'none'}
+              fill={isActive ? iconColor : 'none'}
               size={24}
               strokeWidth={2.2}
             />
