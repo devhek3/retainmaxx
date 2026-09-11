@@ -27,7 +27,6 @@ export default function BottomTabBar({ activeTab, onTabChange }) {
             style={({ pressed }) => [styles.tab, pressed && styles.pressed]}
           >
             <Icon
-              accessible={false}
               color={iconColor}
               fill={isActive ? iconColor : 'none'}
               size={24}

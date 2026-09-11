@@ -70,12 +70,11 @@ function TopicCard({ topic, index }) {
       style={[styles.topicCard, isFeatured && styles.topicCardFeatured]}
     >
       <TopicIcon
-        accessible={false}
         color={isFeatured ? colors.primary : '#596273'}
         size={28}
         strokeWidth={1.9}
       />
-      <ChevronRight accessible={false} color="#525B6B" size={20} strokeWidth={1.9} style={styles.topicChevron} />
+      <ChevronRight color="#525B6B" size={20} strokeWidth={1.9} style={styles.topicChevron} />
       <View style={styles.topicCopy}>
         <AppText adjustsFontSizeToFit minimumFontScale={0.8} numberOfLines={1} style={styles.topicName}>{topic}</AppText>
         <AppText style={styles.topicCount}>{activity.count} {countLabel}</AppText>
